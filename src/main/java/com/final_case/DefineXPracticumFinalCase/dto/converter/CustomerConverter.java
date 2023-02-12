@@ -17,10 +17,7 @@ public class CustomerConverter {
                 .surname(from.getSurname())
                 .birthDay(from.getBirthDay())
                 .callNumber(from.getCallNumber())
-                .salary(from.getSalary())
-                .assurance(from.getAssurance())
-                .creditScore(from.getCreditScore())
-                .CreditApplicationId(from.getCreditApplication().getId())
+                .CreditApplicationId(from.getFinancialInformation().getId())
                 .build();
     }
     public List<CustomerDto> convert(List<Customer> listFrom){

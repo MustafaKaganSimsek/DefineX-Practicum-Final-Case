@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 
@@ -14,15 +15,24 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "credit_application")
+@Table(name = "financial_information")
 @Entity
-public class CreditApplication {
+public class FinancialInformation {
 
     @Id
     @GeneratedValue()
     private UUID id;
+
+    @NotNull(message = "Salary is mandatory")
+    @Column(name = "salary",nullable = false)
+    private double salary;
+
+    private double assurance;
+
+    @Column(name = "credit_score",nullable = false)
+    private double creditScore;
     private double creditLimit;
-    private boolean isAccepted;
+    private boolean isAcceptedCredit;
     @OneToOne()
     @JoinColumn(name = "customer_id")
     private Customer customer;

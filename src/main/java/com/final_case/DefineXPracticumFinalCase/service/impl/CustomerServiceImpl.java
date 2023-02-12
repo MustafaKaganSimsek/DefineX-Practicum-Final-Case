@@ -1,6 +1,6 @@
 package com.final_case.DefineXPracticumFinalCase.service.impl;
 
-import com.final_case.DefineXPracticumFinalCase.dto.ExistCustomerRequest;
+import com.final_case.DefineXPracticumFinalCase.dto.ExistCreditRequest;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
 import com.final_case.DefineXPracticumFinalCase.repository.CustomerRepository;
 import com.final_case.DefineXPracticumFinalCase.service.CreditScoreService;
@@ -28,9 +28,6 @@ public class CustomerServiceImpl implements CustomerService {
                 .identityNumber(customer.getIdentityNumber())
                 .birthDay(customer.getBirthDay())
                 .callNumber(customer.getCallNumber())
-                .salary(customer.getSalary())
-                .assurance(customer.getAssurance())
-                .creditScore(creditScoreService.getCreditScore())
                 .build();
 
         return customerRepository.save(customerBuild);
@@ -52,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findByIdentityNumberAndBirthDay(ExistCustomerRequest request) {
+    public Customer findByIdentityNumberAndBirthDay(ExistCreditRequest request) {
         return customerRepository.findByIdentityNumberAndBirthDay(request.getIdentityNumber(), request.getBirthDay());
     }
 }

@@ -1,8 +1,7 @@
 package com.final_case.DefineXPracticumFinalCase.service;
 
-import com.final_case.DefineXPracticumFinalCase.dto.ExistCustomerRequest;
+import com.final_case.DefineXPracticumFinalCase.dto.ExistCreditRequest;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,5 +16,5 @@ public interface CustomerService {
 
     List<Customer> findAll();
 
-    Customer findByIdentityNumberAndBirthDay(ExistCustomerRequest request);
+    Customer findByIdentityNumberAndBirthDay(ExistCreditRequest request);
 }

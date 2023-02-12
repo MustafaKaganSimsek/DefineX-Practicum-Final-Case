@@ -9,8 +9,11 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class CreditApplicationDto {
+public class FinancialInformationDto {
     private UUID id;
+    private double salary;
+    private double assurance;
+    private double creditScore;
     private double creditLimit;
-    private boolean isAccepted;
+    private boolean isAcceptedCredit;
 }
