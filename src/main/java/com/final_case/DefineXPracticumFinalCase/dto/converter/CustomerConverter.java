@@ -20,6 +20,9 @@ public class CustomerConverter {
                 .CreditApplicationId(from.getFinancialInformation().getId())
                 .build();
     }
+
+
+
     public List<CustomerDto> convert(List<Customer> listFrom){
         return listFrom.stream()
                 .map(from ->convert(from))
