@@ -1,5 +1,6 @@
 package com.final_case.DefineXPracticumFinalCase.exception;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Log4j2
 @RestControllerAdvice
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -27,6 +28,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
+        log.error(errors);
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
