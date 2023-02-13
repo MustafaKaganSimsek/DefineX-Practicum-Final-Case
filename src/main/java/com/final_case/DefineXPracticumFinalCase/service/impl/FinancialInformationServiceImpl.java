@@ -11,8 +11,10 @@ import com.final_case.DefineXPracticumFinalCase.service.CreditScoreService;
 import com.final_case.DefineXPracticumFinalCase.service.FinancialInformationService;
 import com.final_case.DefineXPracticumFinalCase.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class FinancialInformationServiceImpl implements FinancialInformationService {
@@ -25,13 +27,13 @@ public class FinancialInformationServiceImpl implements FinancialInformationServ
 
     @Override
     public FinancialInformation save(FinancialInformation financialInformation) {
-
+        log.debug("Request to update FinancialInformation : {}", financialInformation);
         return financialInformationRepository.save(financialInformation);
     }
 
     @Override
-    public FinancialInformation creditApplicationForNewUser(NewCreditRequest creditRequest){
-
+    public FinancialInformation createNewCreditApplication(NewCreditRequest creditRequest){
+        log.debug("Request to create new credit application: {}",creditRequest);
         Customer customer = customerService.save(Customer.builder()
                         .name(creditRequest.getName())
                         .surname(creditRequest.getSurname())
@@ -56,14 +58,15 @@ public class FinancialInformationServiceImpl implements FinancialInformationServ
     }
 
     @Override
-    public FinancialInformation creditApplicationorExistCustomer(ExistCreditRequest request) {
+    public FinancialInformation getExistCreditApplication(ExistCreditRequest request) {
+        log.debug("Request to get exist credit application: {}",request);
         Customer customer = customerService.findByIdentityNumberAndBirthDay(request);
         return customer.getFinancialInformation();
     }
 
 
     private FinancialInformationDto getCreditInquiry(double salary, double creditScore, double assurance){
-
+        log.debug("Request to get credit inquiry");
 
         if (creditScore>=500 && creditScore<1000 && salary<5000) {
             return FinancialInformationDto.builder()

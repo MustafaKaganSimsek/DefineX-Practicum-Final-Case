@@ -7,13 +7,14 @@ import com.final_case.DefineXPracticumFinalCase.dto.converter.FinancialInformati
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
 import com.final_case.DefineXPracticumFinalCase.service.FinancialInformationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-
+@Log4j2
 @RestController
 @RequestMapping("creditapp/credit_application")
 public class FinancialInformationController {
@@ -22,14 +23,18 @@ public class FinancialInformationController {
     private final FinancialInformationConverter converter;
 
     @PostMapping("/new_customer")
-    public ResponseEntity<FinancialInformationDto> creditApplicationForNewCustomer(@Valid @RequestBody NewCreditRequest newCreditRequest){
+    public ResponseEntity<FinancialInformationDto> createNewCreditApplication(@Valid @RequestBody NewCreditRequest creditRequest){
+        log.debug("REST Request to create new credit application: {}",creditRequest);
+
         return ResponseEntity.ok(converter
-                .convert(financialInformationService.creditApplicationForNewUser(newCreditRequest)));
+                .convert(financialInformationService.createNewCreditApplication(creditRequest)));
     }
 
     @GetMapping("/exist_customer")
-    public ResponseEntity<FinancialInformationDto> creditApplicationorExistCustomer(@RequestBody ExistCreditRequest request){
+    public ResponseEntity<FinancialInformationDto> getExistCreditApplication(@Valid @RequestBody ExistCreditRequest request){
+        log.debug("REST Request to get exist credit application: {}",request);
+
         return ResponseEntity.ok(converter
-                .convert(financialInformationService.creditApplicationorExistCustomer(request)));
+                .convert(financialInformationService.getExistCreditApplication(request)));
     }
 }

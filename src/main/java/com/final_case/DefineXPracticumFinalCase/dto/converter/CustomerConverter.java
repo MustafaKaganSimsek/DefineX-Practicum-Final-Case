@@ -1,7 +1,9 @@
 package com.final_case.DefineXPracticumFinalCase.dto.converter;
 
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerDto;
+import com.final_case.DefineXPracticumFinalCase.dto.FinancialInformationDto;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
+import com.final_case.DefineXPracticumFinalCase.model.FinancialInformation;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,7 +19,20 @@ public class CustomerConverter {
                 .surname(from.getSurname())
                 .birthDay(from.getBirthDay())
                 .callNumber(from.getCallNumber())
-                .CreditApplicationId(from.getFinancialInformation().getId())
+                .financialInformationId(from.getFinancialInformation().getId())
+                .build();
+    }
+    public Customer convert (CustomerDto from){
+        return Customer.builder()
+                .id(from.getId())
+                .identityNumber(from.getIdentityNumber())
+                .name(from.getName())
+                .surname(from.getSurname())
+                .birthDay(from.getBirthDay())
+                .callNumber(from.getCallNumber())
+                .financialInformation(FinancialInformation.builder()
+                        .id(from.getFinancialInformationId())
+                        .build())
                 .build();
     }
 
@@ -28,4 +43,5 @@ public class CustomerConverter {
                 .map(from ->convert(from))
                 .toList();
     }
+
 }

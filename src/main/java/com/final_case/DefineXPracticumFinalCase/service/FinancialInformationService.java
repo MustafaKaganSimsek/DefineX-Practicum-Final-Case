@@ -8,7 +8,7 @@ import com.final_case.DefineXPracticumFinalCase.model.Customer;
 public interface FinancialInformationService {
     FinancialInformation save(FinancialInformation financialInformation);
 
-    FinancialInformation creditApplicationForNewUser(NewCreditRequest creditRequest);
+    FinancialInformation createNewCreditApplication(NewCreditRequest creditRequest);
 
-    FinancialInformation creditApplicationorExistCustomer(ExistCreditRequest request);
+    FinancialInformation getExistCreditApplication(ExistCreditRequest request);
     }

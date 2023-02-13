@@ -16,4 +16,5 @@ public class FinancialInformationDto {
     private double creditScore;
     private double creditLimit;
     private boolean isAcceptedCredit;
+    private UUID customerId;
 }

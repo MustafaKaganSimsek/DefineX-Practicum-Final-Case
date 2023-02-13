@@ -18,5 +18,5 @@ public class CustomerDto {
     private LocalDate birthDay;
     private double assurance;
     private double creditScore;
-    private UUID CreditApplicationId;
+    private UUID financialInformationId;
 }
