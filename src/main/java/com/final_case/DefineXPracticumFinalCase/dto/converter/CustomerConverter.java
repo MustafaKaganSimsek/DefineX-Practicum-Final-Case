@@ -12,15 +12,25 @@ import java.util.List;
 public class CustomerConverter {
 
     public CustomerDto convert (Customer from){
-        return CustomerDto.builder()
+        CustomerDto dto = CustomerDto.builder()
                 .id(from.getId())
                 .identityNumber(from.getIdentityNumber())
                 .name(from.getName())
                 .surname(from.getSurname())
                 .birthDay(from.getBirthDay())
                 .callNumber(from.getCallNumber())
-                .financialInformationId(from.getFinancialInformation().getId())
+                .createdBy(from.getCreatedBy())
+                .createdDate(from.getCreatedDate())
+                .lastModifiedBy(from.getLastModifiedBy())
+                .lastModifiedDate(from.getLastModifiedDate())
                 .build();
+        if (from.getFinancialInformation() != null){
+            dto.setFinancialInformationId(from.getFinancialInformation().getId());
+        }
+        if (from.getCredit() != null){
+            dto.setCreditId(from.getCredit().getId());
+        }
+        return dto;
     }
     public Customer convert (CustomerDto from){
         return Customer.builder()
@@ -30,9 +40,6 @@ public class CustomerConverter {
                 .surname(from.getSurname())
                 .birthDay(from.getBirthDay())
                 .callNumber(from.getCallNumber())
-                .financialInformation(FinancialInformation.builder()
-                        .id(from.getFinancialInformationId())
-                        .build())
                 .build();
     }
 

@@ -1,10 +1,9 @@
 package com.final_case.DefineXPracticumFinalCase.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.envers.AuditOverride;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,9 +14,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@EqualsAndHashCode
 @Table(name = "financial_information")
 @Entity
-public class FinancialInformation {
+public class FinancialInformation extends Auditable{
 
     @Id
     @GeneratedValue()
@@ -31,10 +31,10 @@ public class FinancialInformation {
 
     @Column(name = "credit_score",nullable = false)
     private double creditScore;
-    private double creditLimit;
-    private boolean isAcceptedCredit;
+
+
     @OneToOne()
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id",nullable = false)
     private Customer customer;
 
 }

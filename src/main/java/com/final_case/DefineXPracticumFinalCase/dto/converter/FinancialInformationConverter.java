@@ -10,15 +10,20 @@ import org.springframework.stereotype.Component;
 public class FinancialInformationConverter {
 
     public FinancialInformationDto convert (FinancialInformation from){
-        return FinancialInformationDto.builder()
+        FinancialInformationDto dto =FinancialInformationDto.builder()
                 .id(from.getId())
                 .salary(from.getSalary())
                 .creditScore(from.getCreditScore())
                 .assurance(from.getAssurance())
-                .creditLimit(from.getCreditLimit())
-                .isAcceptedCredit(from.isAcceptedCredit())
-                .customerId(from.getCustomer().getId())
+                .createdBy(from.getCreatedBy())
+                .createdDate(from.getCreatedDate())
+                .lastModifiedBy(from.getLastModifiedBy())
+                .lastModifiedDate(from.getLastModifiedDate())
                 .build();
+        if (from.getCustomer() != null){
+            dto.setCustomerId(from.getCustomer().getId());
+        }
+        return dto;
     }
 
     public FinancialInformation convert (FinancialInformationDto from){
@@ -27,8 +32,6 @@ public class FinancialInformationConverter {
                 .salary(from.getSalary())
                 .creditScore(from.getCreditScore())
                 .assurance(from.getAssurance())
-                .creditLimit(from.getCreditLimit())
-                .isAcceptedCredit(from.isAcceptedCredit())
                 .customer(Customer.builder()
                         .id(from.getCustomerId())
                         .build())

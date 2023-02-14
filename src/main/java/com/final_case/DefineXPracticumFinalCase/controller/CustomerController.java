@@ -7,6 +7,7 @@ import com.final_case.DefineXPracticumFinalCase.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,14 +18,16 @@ import java.util.UUID;
 @Log4j2
 @RestController
 @RequestMapping("creditapp/customer")
+@Validated
 public class CustomerController {
     private final CustomerService customerService;
     private final CustomerConverter converter;
 
     @PostMapping("/save")
-    public ResponseEntity<CustomerDto> save(@Valid @RequestBody Customer customer){
-        log.debug("REST Request to save Customer: {}",customer);
-        return ResponseEntity.ok(converter.convert(customerService.save(customer)));
+    public ResponseEntity<CustomerDto> save(@Valid @RequestBody Customer customerRequest){
+        log.debug("REST Request to save Customer: {}",customerRequest);
+
+        return ResponseEntity.ok(converter.convert(customerService.save(customerRequest)));
     }
 
 
@@ -34,11 +37,10 @@ public class CustomerController {
         return ResponseEntity.ok(converter.convert(customerService.findAll()));
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<Customer> update (@Valid @RequestBody Customer customer){
-        log.debug("REST Request to update Customer : {}", customer);
-        customerService.update(customer);
-        return ResponseEntity.ok(customerService.update(customer));
+    @PostMapping("/update/{id}")
+    public ResponseEntity<CustomerDto> update (@PathVariable(name = "id") UUID id, @RequestBody Customer customerRequest){
+        log.debug("REST Request to update Customer : {}", customerRequest);
+        return ResponseEntity.ok(converter.convert(customerService.update(id,customerRequest)));
 
     }
 
@@ -47,6 +49,7 @@ public class CustomerController {
         log.debug("REST Request to delete Customer : {}", id);
         customerService.delete(id);
     }
+
 
 
 

@@ -22,19 +22,6 @@ public class FinancialInformationController {
     private final FinancialInformationService financialInformationService;
     private final FinancialInformationConverter converter;
 
-    @PostMapping("/new_customer")
-    public ResponseEntity<FinancialInformationDto> createNewCreditApplication(@Valid @RequestBody NewCreditRequest creditRequest){
-        log.debug("REST Request to create new credit application: {}",creditRequest);
-
-        return ResponseEntity.ok(converter
-                .convert(financialInformationService.createNewCreditApplication(creditRequest)));
-    }
-
-    @GetMapping("/exist_customer")
-    public ResponseEntity<FinancialInformationDto> getExistCreditApplication(@Valid @RequestBody ExistCreditRequest request){
-        log.debug("REST Request to get exist credit application: {}",request);
-
-        return ResponseEntity.ok(converter
-                .convert(financialInformationService.getExistCreditApplication(request)));
-    }
+//    @PostMapping("/update/{id}")
+//    public
 }

@@ -1,26 +1,30 @@
 package com.final_case.DefineXPracticumFinalCase.dto;
 
-import lombok.AllArgsConstructor;
+import com.final_case.DefineXPracticumFinalCase.enumeration.CreditMessage;
+import com.final_case.DefineXPracticumFinalCase.model.Customer;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
-@Data
 @Builder
-@AllArgsConstructor
-public class FinancialInformationDto {
+@Data
+@EqualsAndHashCode
+public class CreditDto {
+
     private UUID id;
-    private double salary;
-    private double assurance;
-    private double creditScore;
+
     private double creditLimit;
-    private boolean isAcceptedCredit;
+    private boolean isAccepted;
+    private CreditMessage message;
     private UUID customerId;
 
     private String createdBy;
     private Date createdDate;
     private String lastModifiedBy;
     private Date lastModifiedDate;
+
 }
