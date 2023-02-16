@@ -33,12 +33,18 @@ public class CustomerServiceImpl implements CustomerService {
         log.debug("Request to update Customer : {}", customerRequest);
         Customer existCustomer = customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer " + id + " Not Found"));
-
-        existCustomer.setName(customerRequest.getName());
-        existCustomer.setSurname(customerRequest.getSurname());
-        existCustomer.setCallNumber(customerRequest.getCallNumber());
-        existCustomer.setIdentityNumber(customerRequest.getIdentityNumber());
-
+        if (customerRequest.getName()!= existCustomer.getName()){
+            existCustomer.setName(customerRequest.getName());
+        }
+        if (customerRequest.getSurname()!=existCustomer.getSurname()){
+            existCustomer.setSurname(customerRequest.getSurname());
+        }
+        if (customerRequest.getCallNumber()!=existCustomer.getCallNumber()){
+            existCustomer.setCallNumber(customerRequest.getCallNumber());
+        }
+        if (customerRequest.getIdentityNumber()!=existCustomer.getIdentityNumber()){
+            existCustomer.setIdentityNumber(customerRequest.getIdentityNumber());
+        }
 
         return customerRepository.save(existCustomer);
     }
@@ -55,8 +61,11 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAll();
     }
 
+
     @Override
     public Customer findByIdentityNumberAndBirthDay(ExistCreditRequest request) {
+        log.debug("Request to get Customer by Identity Number and Birth Day: {} ", request);
+
         return customerRepository.findByIdentityNumberAndBirthDay(request.getIdentityNumber(), request.getBirthDay())
                 .orElseThrow(()-> new CustomerNotFoundException("Customer "+ request +" Not Found"));
     }

@@ -1,18 +1,16 @@
 package com.final_case.DefineXPracticumFinalCase.service.impl;
 
-import com.final_case.DefineXPracticumFinalCase.dto.converter.FinancialInformationConverter;
 import com.final_case.DefineXPracticumFinalCase.exception.FinancialInformationNotFoundExeption;
 import com.final_case.DefineXPracticumFinalCase.model.FinancialInformation;
 import com.final_case.DefineXPracticumFinalCase.repository.FinancialInformationRepository;
 import com.final_case.DefineXPracticumFinalCase.service.CreditScoreService;
-import com.final_case.DefineXPracticumFinalCase.service.CreditService;
 import com.final_case.DefineXPracticumFinalCase.service.FinancialInformationService;
-import com.final_case.DefineXPracticumFinalCase.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 @Log4j2
@@ -22,7 +20,6 @@ public class FinancialInformationServiceImpl implements FinancialInformationServ
     private final CreditScoreService creditScoreService;
     private final FinancialInformationRepository financialInformationRepository;
 
-    private final int creditLimitMultiplier = 4;
 
     @Override
     public FinancialInformation save(FinancialInformation financialInformationRequest) {
@@ -39,17 +36,33 @@ public class FinancialInformationServiceImpl implements FinancialInformationServ
 
 
     @Override
-    public FinancialInformation update (UUID financialInformationId ,FinancialInformation financialInformationRequest){
-        Optional<FinancialInformation> financialInformation = Optional.ofNullable(financialInformationRepository.findById(financialInformationId)
-                .orElseThrow(() -> new FinancialInformationNotFoundExeption("Financial Information " + financialInformationId + " Not Found")));
+    public FinancialInformation update (UUID financialInformationId , FinancialInformation financialInformationRequest){
+        FinancialInformation financialInformation =financialInformationRepository.findById(financialInformationId)
+                .orElseThrow(() -> new FinancialInformationNotFoundExeption("Financial Information " + financialInformationId + " Not Found"));
+        if(financialInformationRequest.getSalary() != financialInformation.getSalary()){
+            financialInformation.setSalary(financialInformationRequest.getSalary());
+        }
+        if (financialInformationRequest.getAssurance() != financialInformation.getAssurance()){
+            financialInformation.setAssurance(financialInformationRequest.getAssurance());
+        }
+        if (financialInformationRequest.getCreditScore() != financialInformation.getCreditScore()){
+            financialInformation.setCreditScore(financialInformationRequest.getCreditScore());
+        }
 
-        financialInformation.ifPresent(financialInfo -> {
-            financialInfo.setSalary(financialInformationRequest.getSalary());
-            financialInfo.setAssurance(financialInformationRequest.getAssurance());
-            financialInfo.setCreditScore(financialInformationRequest.getCreditScore());
-            financialInformationRepository.save(financialInfo);
-        } );
-        return financialInformation.get();
+        return financialInformationRepository.save(financialInformation);
+    }
+
+    @Override
+    public void delete(@PathVariable UUID id){
+        log.debug("Request to delete Financial Information : {}", id);
+        financialInformationRepository.deleteById(id);
+    }
+
+    @Override
+    public List<FinancialInformation> findAll(){
+        log.debug("Request to get all Financial Information");
+
+        return financialInformationRepository.findAll();
     }
 
 

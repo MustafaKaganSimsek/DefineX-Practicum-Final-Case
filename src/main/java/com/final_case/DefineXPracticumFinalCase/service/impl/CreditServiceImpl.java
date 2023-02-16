@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Log4j2
@@ -27,24 +28,22 @@ public class CreditServiceImpl implements CreditService {
 
     private final int creditLimitMultiplier = 4;
 
-    private Credit save(Credit creditRequest){
+    @Override
+    public Credit save(Credit creditRequest){
         return creditRepository.save(creditRequest);
     }
 
-    public Credit update(UUID creditId,Credit creditRequest){
-        return null;
-    }
 
     @Override
-    public Credit updateWithFinancialInformation(FinancialInformation financialInformation){
-        Credit credit = creditRepository.findByCustomer(financialInformation.getCustomer())
-                .orElseThrow(()->new CreditNotFoundExeption("Credit " +financialInformation.getCustomer().getId()+ " Not Found"));
+    public Credit update(UUID creditId,Credit creditRequest){
+        Credit credit = creditRepository.findById(creditId).orElseThrow(()->new CreditNotFoundExeption("Credit " + creditId + " Not Found"));
 
-        Credit newCredit = getCreditInquiry(financialInformation);
-        credit.setMessage(newCredit.getMessage());
-        credit.setCreditLimit(newCredit.getCreditLimit());
-        credit.setAccepted(newCredit.isAccepted());
-        return creditRepository.save(credit);
+        return creditRepository.save(Credit.builder()
+                        .id(creditId)
+                        .isAccepted(creditRequest.isAccepted())
+                        .creditLimit(creditRequest.getCreditLimit())
+                        .message(creditRequest.getMessage())
+                        .build());
     }
 
 
@@ -81,8 +80,9 @@ public class CreditServiceImpl implements CreditService {
     public Credit getExistCredit(ExistCreditRequest request) {
         log.debug("Request to get exist credit application: {}",request);
         Customer customer = customerService.findByIdentityNumberAndBirthDay(request);
+
         if (customer.getFinancialInformation().getLastModifiedDate().after(customer.getCredit().getLastModifiedDate())){
-            return updateWithFinancialInformation(customer.getFinancialInformation());
+            return update(customer.getCredit().getId(),getCreditInquiry(customer.getFinancialInformation()));
         }
         return customer.getCredit();
     }

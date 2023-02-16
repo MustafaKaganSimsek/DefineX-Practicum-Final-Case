@@ -8,10 +8,9 @@ import com.final_case.DefineXPracticumFinalCase.model.FinancialInformation;
 import java.util.UUID;
 
 public interface CreditService {
+    Credit save(Credit creditRequest);
 
-    Credit update(UUID creditId, Credit creditRequest);
-
-    Credit updateWithFinancialInformation(FinancialInformation financialInformation);
+    Credit update(UUID creditId,Credit creditRequest);
 
     Credit createNewCredit(NewCreditRequest creditRequest);
 

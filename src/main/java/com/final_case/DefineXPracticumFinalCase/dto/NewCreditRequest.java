@@ -1,6 +1,7 @@
 package com.final_case.DefineXPracticumFinalCase.dto;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
@@ -20,6 +21,7 @@ public class NewCreditRequest {
     private String identityNumber;
 
     @NotNull(message = "Salary is mandatory")
+    @Range(min = 0)
     private double salary;
 
     @NotBlank(message = "Call number is mandatory")

@@ -32,16 +32,6 @@ public class CustomerConverter {
         }
         return dto;
     }
-    public Customer convert (CustomerDto from){
-        return Customer.builder()
-                .id(from.getId())
-                .identityNumber(from.getIdentityNumber())
-                .name(from.getName())
-                .surname(from.getSurname())
-                .birthDay(from.getBirthDay())
-                .callNumber(from.getCallNumber())
-                .build();
-    }
 
 
 

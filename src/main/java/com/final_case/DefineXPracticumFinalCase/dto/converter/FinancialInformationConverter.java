@@ -6,6 +6,8 @@ import com.final_case.DefineXPracticumFinalCase.model.Customer;
 import com.final_case.DefineXPracticumFinalCase.model.FinancialInformation;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class FinancialInformationConverter {
 
@@ -26,15 +28,10 @@ public class FinancialInformationConverter {
         return dto;
     }
 
-    public FinancialInformation convert (FinancialInformationDto from){
-        return FinancialInformation.builder()
-                .id(from.getId())
-                .salary(from.getSalary())
-                .creditScore(from.getCreditScore())
-                .assurance(from.getAssurance())
-                .customer(Customer.builder()
-                        .id(from.getCustomerId())
-                        .build())
-                .build();
+
+    public List<FinancialInformationDto> convert (List<FinancialInformation> listFrom){
+        return listFrom.stream()
+                .map(from->convert(from))
+                .toList();
     }
 }

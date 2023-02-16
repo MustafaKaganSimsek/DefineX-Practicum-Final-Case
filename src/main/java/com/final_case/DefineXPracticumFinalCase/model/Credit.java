@@ -6,6 +6,8 @@ import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Builder
@@ -24,6 +26,7 @@ public class Credit extends Auditable{
     @Column(name = "credit_limit",nullable = false)
     private double creditLimit;
 
+    @NotNull(message = "Name is mandatory")
     @Column(name = "isAccepted",nullable = false)
     private boolean isAccepted;
 

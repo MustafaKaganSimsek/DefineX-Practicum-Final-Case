@@ -4,6 +4,7 @@ package com.final_case.DefineXPracticumFinalCase.model;
 import lombok.*;
 import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -23,7 +24,7 @@ public class FinancialInformation extends Auditable{
     @GeneratedValue()
     private UUID id;
 
-    @NotNull(message = "Salary is mandatory")
+    @Range(min = 0)
     @Column(name = "salary",nullable = false)
     private double salary;
 
