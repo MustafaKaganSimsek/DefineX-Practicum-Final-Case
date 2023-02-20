@@ -1,33 +1,22 @@
 version: '3.9'
 
 services:
-  db:
-    image: mongo
-    container_name: mongodb
-    restart: always
+  app:
+    container_name: credit-app
+    image: credit-app
+    build: ./
     ports:
-      - 27017:27017
-    volumes:
-      - data:/data
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=root
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=db
-      - ME_CONFIG_MONGODB_AUTH_USERNAME=root
-      - ME_CONFIG_MONGODB_AUTH_PASSWORD=root
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=root
+      - "8080:8080"
     depends_on:
-      - db
+      - postgresqldb
 
-volumes:
-  data: {}
-networks:
-  default:
-    name: mongo_network
+  postgresqldb:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=credit_app
+
+

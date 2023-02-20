@@ -53,5 +53,12 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(SqlException.class)
+    public ResponseEntity<?> constraintViolationException(SqlException exception)throws IOException {
+        log.error(exception.getMessage());
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
 
 }

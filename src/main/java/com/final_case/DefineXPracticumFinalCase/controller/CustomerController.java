@@ -17,7 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Log4j2
 @RestController
-@RequestMapping("creditapp/customer")
+@RequestMapping("customer")
 @Validated
 public class CustomerController {
     private final CustomerService customerService;

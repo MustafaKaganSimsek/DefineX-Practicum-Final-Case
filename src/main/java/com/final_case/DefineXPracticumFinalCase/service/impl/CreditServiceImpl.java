@@ -4,6 +4,7 @@ import com.final_case.DefineXPracticumFinalCase.dto.ExistCreditRequest;
 import com.final_case.DefineXPracticumFinalCase.dto.NewCreditRequest;
 import com.final_case.DefineXPracticumFinalCase.enumeration.CreditMessage;
 import com.final_case.DefineXPracticumFinalCase.exception.CreditNotFoundExeption;
+import com.final_case.DefineXPracticumFinalCase.exception.FinancialInformationNotFoundExeption;
 import com.final_case.DefineXPracticumFinalCase.model.Credit;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
 import com.final_case.DefineXPracticumFinalCase.model.FinancialInformation;
@@ -80,7 +81,18 @@ public class CreditServiceImpl implements CreditService {
     public Credit getExistCredit(ExistCreditRequest request) {
         log.debug("Request to get exist credit application: {}",request);
         Customer customer = customerService.findByIdentityNumberAndBirthDay(request);
-
+        if (customer.getFinancialInformation()==null){
+            throw new FinancialInformationNotFoundExeption("Financial Information Not Found For Customer: " + request);
+        }
+        if (customer.getCredit()==null){
+            Credit credit = getCreditInquiry(customer.getFinancialInformation());
+            creditRepository.save(Credit.builder()
+                            .creditLimit(credit.getCreditLimit())
+                            .message(credit.getMessage())
+                            .isAccepted(credit.isAccepted())
+                            .customer(customer)
+                    .build());
+        }
         if (customer.getFinancialInformation().getLastModifiedDate().after(customer.getCredit().getLastModifiedDate())){
             return update(customer.getCredit().getId(),getCreditInquiry(customer.getFinancialInformation()));
         }

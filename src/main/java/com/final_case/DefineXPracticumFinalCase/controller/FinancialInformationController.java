@@ -20,7 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Log4j2
 @RestController
-@RequestMapping("creditapp/credit_application")
+@RequestMapping("financial-inormation")
 public class FinancialInformationController {
 
     private final FinancialInformationService financialInformationService;

@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 
-@Log4j2
 class FinancialInformationServiceTest {
 
     private FinancialInformationService financialInformationService;
@@ -45,7 +44,6 @@ class FinancialInformationServiceTest {
         Mockito.when(creditScoreService.getCreditScore()).thenReturn(1000.0);
         Mockito.when(financialInformationRepository.save(any())).thenReturn(testRequest);
 
-        log.debug(financialInformationService.save(testRequest));
         Object result = financialInformationService.save(testRequest);
 
         assertEquals(testRequest,result);

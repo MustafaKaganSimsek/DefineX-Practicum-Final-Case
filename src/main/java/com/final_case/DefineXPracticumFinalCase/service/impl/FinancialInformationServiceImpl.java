@@ -1,6 +1,7 @@
 package com.final_case.DefineXPracticumFinalCase.service.impl;
 
 import com.final_case.DefineXPracticumFinalCase.exception.FinancialInformationNotFoundExeption;
+import com.final_case.DefineXPracticumFinalCase.exception.SqlException;
 import com.final_case.DefineXPracticumFinalCase.model.FinancialInformation;
 import com.final_case.DefineXPracticumFinalCase.repository.FinancialInformationRepository;
 import com.final_case.DefineXPracticumFinalCase.service.CreditScoreService;
@@ -22,7 +23,7 @@ public class FinancialInformationServiceImpl implements FinancialInformationServ
 
 
     @Override
-    public FinancialInformation save(FinancialInformation financialInformationRequest) {
+    public FinancialInformation save(FinancialInformation financialInformationRequest)throws SqlException {
         log.debug("Request to update FinancialInformation : {}", financialInformationRequest);
 
         return financialInformationRepository.save(FinancialInformation.builder()
@@ -39,6 +40,7 @@ public class FinancialInformationServiceImpl implements FinancialInformationServ
     public FinancialInformation update (UUID financialInformationId , FinancialInformation financialInformationRequest){
         FinancialInformation financialInformation =financialInformationRepository.findById(financialInformationId)
                 .orElseThrow(() -> new FinancialInformationNotFoundExeption("Financial Information " + financialInformationId + " Not Found"));
+
         if(financialInformationRequest.getSalary() != financialInformation.getSalary()){
             financialInformation.setSalary(financialInformationRequest.getSalary());
         }
