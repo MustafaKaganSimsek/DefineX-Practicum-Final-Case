@@ -2,6 +2,7 @@ package com.final_case.DefineXPracticumFinalCase.service.impl;
 
 import com.final_case.DefineXPracticumFinalCase.dto.ExistCreditRequest;
 import com.final_case.DefineXPracticumFinalCase.exception.CustomerNotFoundException;
+import com.final_case.DefineXPracticumFinalCase.exception.ExistsCustomerException;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
 import com.final_case.DefineXPracticumFinalCase.repository.CustomerRepository;
 import com.final_case.DefineXPracticumFinalCase.service.CustomerService;
@@ -10,7 +11,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,7 +25,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer save(Customer customerRequest) {
         log.debug("Request to save Customer: {}",customerRequest);
-        return customerRepository.save(customerRequest);
+        if (customerRepository.existsByIdentityNumber(customerRequest.getIdentityNumber())){
+            throw new ExistsCustomerException("Customer is exists");
+        }
+        else {
+            return customerRepository.save(customerRequest);
+
+        }
     }
 
     @Override
@@ -33,16 +39,16 @@ public class CustomerServiceImpl implements CustomerService {
         log.debug("Request to update Customer : {}", customerRequest);
         Customer existCustomer = customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer " + id + " Not Found"));
-        if (customerRequest.getName()!= existCustomer.getName()){
+        if (customerRequest.getName()!= null){
             existCustomer.setName(customerRequest.getName());
         }
-        if (customerRequest.getSurname()!=existCustomer.getSurname()){
+        if (customerRequest.getSurname()!=null){
             existCustomer.setSurname(customerRequest.getSurname());
         }
-        if (customerRequest.getCallNumber()!=existCustomer.getCallNumber()){
+        if (customerRequest.getCallNumber()!=null){
             existCustomer.setCallNumber(customerRequest.getCallNumber());
         }
-        if (customerRequest.getIdentityNumber()!=existCustomer.getIdentityNumber()){
+        if (customerRequest.getIdentityNumber()!=null){
             existCustomer.setIdentityNumber(customerRequest.getIdentityNumber());
         }
 
@@ -68,5 +74,12 @@ public class CustomerServiceImpl implements CustomerService {
 
         return customerRepository.findByIdentityNumberAndBirthDay(request.getIdentityNumber(), request.getBirthDay())
                 .orElseThrow(()-> new CustomerNotFoundException("Customer "+ request +" Not Found"));
+    }
+
+    @Override
+    public Customer findByIdentityNumber(String identityNumber){
+        return customerRepository.findByIdentityNumber(identityNumber)
+                .orElseThrow(()-> new CustomerNotFoundException("Customer "+ identityNumber +" Not Found"));
+
     }
 }

@@ -4,11 +4,9 @@ import com.final_case.DefineXPracticumFinalCase.dto.ExistCreditRequest;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
 import com.final_case.DefineXPracticumFinalCase.repository.CustomerRepository;
 import com.final_case.DefineXPracticumFinalCase.service.impl.CustomerServiceImpl;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,7 +30,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void save() {
+    void saveCustemer_shouldReturnCustomer() {
         Customer customerRequestTest = Customer.builder()
                 .id(id)
                 .name("name")
@@ -84,7 +82,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void findAll() {
+    void findAllCustomers_shouldReturnCustomerList() {
         Customer testRequest = Customer.builder()
                 .id(UUID.randomUUID())
                 .name("name")
@@ -115,7 +113,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void findByIdentityNumberAndBirthDay() {
+    void findByIdentityNumberAndBirthDay_shouldReturnCustomer() {
         Customer testRequest = Customer.builder()
                 .id(id)
                 .name("name")

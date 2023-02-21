@@ -1,12 +1,10 @@
 package com.final_case.DefineXPracticumFinalCase.dto;
 
 import com.final_case.DefineXPracticumFinalCase.enumeration.CreditMessage;
-import com.final_case.DefineXPracticumFinalCase.model.Customer;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 

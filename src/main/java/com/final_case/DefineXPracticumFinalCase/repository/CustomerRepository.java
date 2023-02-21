@@ -13,4 +13,7 @@ public interface CustomerRepository extends JpaRepository<Customer, UUID> {
 
     Optional<Customer> findByIdentityNumberAndBirthDay(String identityNumber, LocalDate bithDay);
 
+    Optional<Customer> findByIdentityNumber(String identityNumber);
+
+    boolean existsByIdentityNumber(String identityNumber);
 }

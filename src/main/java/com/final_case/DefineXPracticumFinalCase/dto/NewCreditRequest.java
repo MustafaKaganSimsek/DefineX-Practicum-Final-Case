@@ -1,12 +1,12 @@
 package com.final_case.DefineXPracticumFinalCase.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
 @Builder

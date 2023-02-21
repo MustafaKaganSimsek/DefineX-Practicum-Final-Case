@@ -1,13 +1,10 @@
 package com.final_case.DefineXPracticumFinalCase.model;
 
-
+import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.envers.AuditOverride;
-import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 import java.util.UUID;
 
 
@@ -36,6 +33,7 @@ public class FinancialInformation extends Auditable{
 
     @OneToOne()
     @JoinColumn(name = "customer_id",nullable = false)
+    @MapsId
     private Customer customer;
 
 }

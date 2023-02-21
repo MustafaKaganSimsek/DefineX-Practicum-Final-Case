@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CreditScoreServiceImplTest {
 
     @Test
-    void getCreditScore() {
+    void getCreditScore_returnShoulDoubleNumber() {
+
     }
 }

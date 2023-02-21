@@ -4,13 +4,13 @@ import com.final_case.DefineXPracticumFinalCase.dto.CustomerDto;
 import com.final_case.DefineXPracticumFinalCase.dto.converter.CustomerConverter;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
 import com.final_case.DefineXPracticumFinalCase.service.CustomerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 

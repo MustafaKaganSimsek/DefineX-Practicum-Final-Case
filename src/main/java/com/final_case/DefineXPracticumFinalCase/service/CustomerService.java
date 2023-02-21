@@ -17,4 +17,7 @@ public interface CustomerService {
     List<Customer> findAll();
 
     Customer findByIdentityNumberAndBirthDay(ExistCreditRequest request);
+
+
+    Customer findByIdentityNumber(String identityNumber);
 }

@@ -3,6 +3,7 @@ package com.final_case.DefineXPracticumFinalCase.exception;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,11 +20,13 @@ import java.util.Map;
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
     //data object or entity object validation method
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
-                                                                  HttpStatus status,
+                                                                  HttpStatusCode status,
                                                                   WebRequest request) {
+
         Map<String,String> errors =new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach(error -> {
             String fieldName = ((FieldError) error).getField();
@@ -35,29 +38,31 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+
     @ExceptionHandler(CreditNotFoundExeption.class)
-    public ResponseEntity<?> constraintViolationException(CreditNotFoundExeption exception)throws IOException {
+    public ResponseEntity<?> creditNotFoundExeption(CreditNotFoundExeption exception)throws IOException {
         log.error(exception.getMessage());
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(FinancialInformationNotFoundExeption.class)
-    public ResponseEntity<?> constraintViolationException(FinancialInformationNotFoundExeption exception)throws IOException {
+    public ResponseEntity<?> financialInformationNotFoundExeption(FinancialInformationNotFoundExeption exception)throws IOException {
         log.error(exception.getMessage());
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(CustomerNotFoundException.class)
-    public ResponseEntity<?> constraintViolationException(CustomerNotFoundException exception)throws IOException {
+    public ResponseEntity<?> customerNotFoundException(CustomerNotFoundException exception)throws IOException {
         log.error(exception.getMessage());
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(SqlException.class)
-    public ResponseEntity<?> constraintViolationException(SqlException exception)throws IOException {
+    @ExceptionHandler(ExistsCustomerException.class)
+    public ResponseEntity<?> existsCustomerException(ExistsCustomerException exception)throws IOException {
         log.error(exception.getMessage());
-        return new ResponseEntity<>(exception.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
     }
+
 
 
 

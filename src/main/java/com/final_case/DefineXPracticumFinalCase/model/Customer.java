@@ -1,12 +1,12 @@
 package com.final_case.DefineXPracticumFinalCase.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.envers.AuditOverride;
-import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -35,8 +35,6 @@ public class Customer extends Auditable{
     @Column(name = "identity_number",nullable = false)
     private String identityNumber;
 
-
-
     @NotBlank(message = "Callnumber is mandatory")
     @Column(name = "call_number",nullable = false)
     private String callNumber;
@@ -45,10 +43,12 @@ public class Customer extends Auditable{
     @Column(name = "birth_day",nullable = false)
     private LocalDate birthDay;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "customer")
-    private FinancialInformation financialInformation;
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private FinancialInformation financialInformation = new FinancialInformation();
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "customer")
-    private Credit credit;
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Credit credit = new Credit();
 
 }

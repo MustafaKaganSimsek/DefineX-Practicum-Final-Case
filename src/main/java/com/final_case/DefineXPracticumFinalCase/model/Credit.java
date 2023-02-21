@@ -1,13 +1,12 @@
 package com.final_case.DefineXPracticumFinalCase.model;
 
 import com.final_case.DefineXPracticumFinalCase.enumeration.CreditMessage;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.envers.AuditOverride;
-import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+
+
 import java.util.UUID;
 
 @Builder
@@ -33,7 +32,9 @@ public class Credit extends Auditable{
     @Enumerated(EnumType.STRING)
     @Column(name = "message",nullable = false)
     private CreditMessage message;
+
     @OneToOne()
     @JoinColumn(name = "customer_id",nullable = false)
+    @MapsId
     private Customer customer;
 }
