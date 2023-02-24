@@ -1,7 +1,7 @@
-version: '3.9'
+version: '3.3'
 
 services:
-  app:
+  spring:
     container_name: credit-app
     image: credit-app
     build: ./
@@ -9,7 +9,11 @@ services:
       - "8080:8080"
     depends_on:
       - postgresqldb
-
+  angular:
+      container_name: angular-docker-container
+      build: ./angular-client-app/
+      ports:
+        - '9000:80'
   postgresqldb:
     image: postgres
     ports:
