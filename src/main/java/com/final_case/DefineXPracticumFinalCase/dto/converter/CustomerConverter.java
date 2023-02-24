@@ -1,9 +1,7 @@
 package com.final_case.DefineXPracticumFinalCase.dto.converter;
 
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerDto;
-import com.final_case.DefineXPracticumFinalCase.dto.FinancialInformationDto;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
-import com.final_case.DefineXPracticumFinalCase.model.FinancialInformation;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,14 +17,14 @@ public class CustomerConverter {
                 .surname(from.getSurname())
                 .birthDay(from.getBirthDay())
                 .callNumber(from.getCallNumber())
+                .salary(from.getSalary())
+                .assurance(from.getAssurance())
+                .creditScore(from.getCreditScore())
                 .createdBy(from.getCreatedBy())
                 .createdDate(from.getCreatedDate())
                 .lastModifiedBy(from.getLastModifiedBy())
                 .lastModifiedDate(from.getLastModifiedDate())
                 .build();
-        if (from.getFinancialInformation() != null){
-            dto.setFinancialInformationId(from.getFinancialInformation().getId());
-        }
         if (from.getCredit() != null){
             dto.setCreditId(from.getCredit().getId());
         }

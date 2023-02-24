@@ -1,6 +1,7 @@
 package com.final_case.DefineXPracticumFinalCase.controller;
 
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerDto;
+import com.final_case.DefineXPracticumFinalCase.dto.CustomerPersonalInfoDto;
 import com.final_case.DefineXPracticumFinalCase.dto.converter.CustomerConverter;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
 import com.final_case.DefineXPracticumFinalCase.service.CustomerService;
@@ -38,9 +39,9 @@ public class CustomerController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<CustomerDto> update (@PathVariable(name = "id") UUID id, @RequestBody Customer customerRequest){
-        log.debug("REST Request to update Customer : {}", customerRequest);
-        return ResponseEntity.ok(converter.convert(customerService.update(id,customerRequest)));
+    public ResponseEntity<CustomerDto> update (@PathVariable(name = "id") UUID id, @RequestBody CustomerPersonalInfoDto CustomerPersonalInfoDto){
+        log.debug("REST Request to update Customer personal information by id: {}", id);
+        return ResponseEntity.ok(converter.convert(customerService.updatePersonalInformation(id,CustomerPersonalInfoDto)));
 
     }
 

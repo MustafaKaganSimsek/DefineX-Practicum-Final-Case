@@ -22,7 +22,9 @@ public class CustomerDto {
     private String identityNumber;
     private String callNumber;
     private LocalDate birthDay;
-    private UUID financialInformationId;
+    private double salary;
+    private double assurance;
+    private double creditScore;
     private UUID creditId;
 
     private String createdBy;

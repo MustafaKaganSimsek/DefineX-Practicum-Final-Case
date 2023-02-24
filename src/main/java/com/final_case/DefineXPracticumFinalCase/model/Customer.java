@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-
+import org.hibernate.validator.constraints.Range;
 
 
 import java.time.LocalDate;
@@ -43,9 +43,14 @@ public class Customer extends Auditable{
     @Column(name = "birth_day",nullable = false)
     private LocalDate birthDay;
 
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private FinancialInformation financialInformation = new FinancialInformation();
+    @Range(min = 0)
+    @Column(name = "salary")
+    private double salary;
+
+    private double assurance;
+
+    @Column(name = "credit_score")
+    private double creditScore;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn

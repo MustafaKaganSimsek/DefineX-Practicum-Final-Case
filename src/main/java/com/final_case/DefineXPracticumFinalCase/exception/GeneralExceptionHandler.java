@@ -45,12 +45,6 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(FinancialInformationNotFoundExeption.class)
-    public ResponseEntity<?> financialInformationNotFoundExeption(FinancialInformationNotFoundExeption exception)throws IOException {
-        log.error(exception.getMessage());
-        return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
-    }
-
     @ExceptionHandler(CustomerNotFoundException.class)
     public ResponseEntity<?> customerNotFoundException(CustomerNotFoundException exception)throws IOException {
         log.error(exception.getMessage());
@@ -62,6 +56,13 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         log.error(exception.getMessage());
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ExistCreditException.class)
+    public ResponseEntity<?> existsCustomerException(ExistCreditException exception)throws IOException {
+        log.error(exception.getMessage());
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+    }
+
 
 
 

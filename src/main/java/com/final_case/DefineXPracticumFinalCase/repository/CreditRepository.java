@@ -10,4 +10,6 @@ import java.util.UUID;
 public interface CreditRepository extends JpaRepository<Credit, UUID> {
     Optional<Credit> findByCustomer (Customer customer);
 
+    boolean existsByCustomer(Customer customer);
+
 }

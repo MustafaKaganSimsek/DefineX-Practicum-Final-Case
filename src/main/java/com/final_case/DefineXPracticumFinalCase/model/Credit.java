@@ -22,17 +22,19 @@ public class Credit extends Auditable{
     @GeneratedValue
     private UUID id;
 
+
     @Column(name = "credit_limit",nullable = false)
     private double creditLimit;
 
-    @NotNull(message = "Name is mandatory")
     @Column(name = "isAccepted",nullable = false)
     private boolean isAccepted;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "message",nullable = false)
     private CreditMessage message;
 
+    @NotNull
     @OneToOne()
     @JoinColumn(name = "customer_id",nullable = false)
     @MapsId

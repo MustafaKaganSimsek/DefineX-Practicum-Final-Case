@@ -1,15 +1,18 @@
 package com.final_case.DefineXPracticumFinalCase.service.impl;
 
-import com.final_case.DefineXPracticumFinalCase.dto.ExistCreditRequest;
+import com.final_case.DefineXPracticumFinalCase.dto.CustomerPersonalInfoDto;
+import com.final_case.DefineXPracticumFinalCase.dto.CustomerFinancialInfoDto;
 import com.final_case.DefineXPracticumFinalCase.exception.CustomerNotFoundException;
 import com.final_case.DefineXPracticumFinalCase.exception.ExistsCustomerException;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
 import com.final_case.DefineXPracticumFinalCase.repository.CustomerRepository;
+import com.final_case.DefineXPracticumFinalCase.service.CreditScoreService;
 import com.final_case.DefineXPracticumFinalCase.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,39 +22,56 @@ import java.util.UUID;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final CreditScoreService creditScoreService;
 
 
 
     @Override
-    public Customer save(Customer customerRequest) {
-        log.debug("Request to save Customer: {}",customerRequest);
-        if (customerRepository.existsByIdentityNumber(customerRequest.getIdentityNumber())){
+    public Customer save(Customer customerPersonalInfoDto) {
+        log.debug("Request to save Customer: {}",customerPersonalInfoDto);
+        if (customerRepository.existsByIdentityNumber(customerPersonalInfoDto.getIdentityNumber())){
             throw new ExistsCustomerException("Customer is exists");
         }
         else {
-            return customerRepository.save(customerRequest);
+            customerPersonalInfoDto.setCreditScore(creditScoreService.getCreditScore());
+            return customerRepository.save(customerPersonalInfoDto);
 
         }
     }
 
     @Override
-    public Customer update(UUID id,Customer customerRequest) {
-        log.debug("Request to update Customer : {}", customerRequest);
+    public Customer updatePersonalInformation(UUID id, CustomerPersonalInfoDto customerPersonalInfoDto) {
+        log.debug("Request to update Customer personal information by id: {}", id );
         Customer existCustomer = customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer " + id + " Not Found"));
-        if (customerRequest.getName()!= null){
-            existCustomer.setName(customerRequest.getName());
+        if (customerPersonalInfoDto.getName()!= null){
+            existCustomer.setName(customerPersonalInfoDto.getName());
         }
-        if (customerRequest.getSurname()!=null){
-            existCustomer.setSurname(customerRequest.getSurname());
+        if (customerPersonalInfoDto.getSurname()!=null){
+            existCustomer.setSurname(customerPersonalInfoDto.getSurname());
         }
-        if (customerRequest.getCallNumber()!=null){
-            existCustomer.setCallNumber(customerRequest.getCallNumber());
+        if (customerPersonalInfoDto.getCallNumber()!=null){
+            existCustomer.setCallNumber(customerPersonalInfoDto.getCallNumber());
         }
-        if (customerRequest.getIdentityNumber()!=null){
-            existCustomer.setIdentityNumber(customerRequest.getIdentityNumber());
+        if (customerPersonalInfoDto.getIdentityNumber()!=null){
+            existCustomer.setIdentityNumber(customerPersonalInfoDto.getIdentityNumber());
+        }
+        if (customerPersonalInfoDto.getBirthDay()!=null){
+            existCustomer.setBirthDay(customerPersonalInfoDto.getBirthDay());
         }
 
+
+        return customerRepository.save(existCustomer);
+    }
+
+    @Override
+    public Customer updateFinancialInformation(UUID id, CustomerFinancialInfoDto financialInformationDto) {
+        Customer existCustomer = customerRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer " + id + " Not Found"));
+
+        existCustomer.setSalary(financialInformationDto.getSalary());
+        existCustomer.setAssurance(financialInformationDto.getAssurance());
+        existCustomer.setCreditScore(creditScoreService.getCreditScore());
         return customerRepository.save(existCustomer);
     }
 
@@ -69,15 +89,17 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public Customer findByIdentityNumberAndBirthDay(ExistCreditRequest request) {
-        log.debug("Request to get Customer by Identity Number and Birth Day: {} ", request);
+    public Customer findByIdentityNumberAndBirthDay(String identityNumber , LocalDate birthDay) {
+        log.debug("Request to get Customer by Identity Number and Birth Day: {} and {}",identityNumber,birthDay);
 
-        return customerRepository.findByIdentityNumberAndBirthDay(request.getIdentityNumber(), request.getBirthDay())
-                .orElseThrow(()-> new CustomerNotFoundException("Customer "+ request +" Not Found"));
+        return customerRepository.findByIdentityNumberAndBirthDay(identityNumber, birthDay)
+                .orElseThrow(()-> new CustomerNotFoundException("Customer Not Found By " + identityNumber + " And " + birthDay ));
     }
+
 
     @Override
     public Customer findByIdentityNumber(String identityNumber){
+        log.debug("Request to get Customer by Identity Number : {} ",identityNumber);
         return customerRepository.findByIdentityNumber(identityNumber)
                 .orElseThrow(()-> new CustomerNotFoundException("Customer "+ identityNumber +" Not Found"));
 
