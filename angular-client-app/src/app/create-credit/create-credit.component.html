@@ -1,0 +1,36 @@
+  <h1 style="text-align: center;">Kredi Başvurusu</h1>
+  
+  <div class="mb-3 mx-3">
+    <label for="name" class="form-label">İsim</label>
+    <input #name type="text" class="form-control" id="name" >
+  </div>
+  <div class="mb-3 mx-3">
+    <label for="surname" class="form-label">Soyad</label>
+    <input #surname type="text" class="form-control" id="surname" >
+  </div>
+  <div class="mb-3 mx-3">
+    <label for="identityNumber" class="form-label">Kimlik Numarası</label>
+    <input #identityNumber type="test" class="form-control" id="identityNumber" >
+  </div>
+  <div class="mb-3 mx-3">
+    <label for="callNumber" class="form-label">Telefon Numarası</label>
+    <input #callNumber type="email" class="form-control" id="callNumber" placeholder="5051112233">
+  </div>
+  <div class="mb-3 mx-3">
+    <label for="birthday" class="form-label">Doğum Günü</label>
+    <input #birthday type="date" class="form-control" id="birthday" name="birthday" >
+  </div>
+  <div class="mb-3 mx-3">
+    <label for="salary" class="form-label">Aylık Gelir</label>
+    <input #salary type="text" class="form-control" id="exampleFormControlInput1" >
+  </div>
+  <div class="mb-3 mx-3">
+    <label for="assurance" class="form-label">Teminat</label>
+    <input #assurance type="text" class="form-control" id="assurance" >
+  </div>
+  <div class="mx-3 mt-5">
+    <button type="button" class="btn btn-primary w-100 " (click)="setCredit(name.value,surname.value,identityNumber.value,callNumber.value,birthday.value,salary.value,assurance.value)">Başvur</button>
+  </div>
+  
+
+

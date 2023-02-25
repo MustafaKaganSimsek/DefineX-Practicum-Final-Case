@@ -9,11 +9,11 @@ services:
       - "8080:8080"
     depends_on:
       - postgresqldb
-  angular:
-      container_name: angular-docker-container
-      build: ./angular-client-app/
-      ports:
-        - '9000:80'
+#  angular:
+#      container_name: angular-docker-container
+#      build: ./angular-client-app/
+#      ports:
+#        - '9000:80'
   postgresqldb:
     image: postgres
     ports:
