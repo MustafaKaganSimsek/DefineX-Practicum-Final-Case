@@ -118,17 +118,14 @@ public class CreditServiceImpl implements CreditService {
 
     @Transactional
     @Override
-    public Credit updateExistCredit(String identityNumber, CustomerFinancialInfoDto financialInfoRequest) {
+    public Credit updateExistCredit(String identityNumber, double salary, double assurance) {
         log.debug("Request to update Credit by identity number: {}",identityNumber);
 
         Customer existCustomer = customerService.findByIdentityNumber(identityNumber);
         if (existCustomer.getCredit() == null){
             throw new CreditNotFoundExeption("Credit not found for Customer : " + identityNumber);
         }
-        Customer updatedCustomer = customerService.updateFinancialInformation(existCustomer.getId(), CustomerFinancialInfoDto.builder()
-                .salary(financialInfoRequest.getSalary())
-                .assurance(financialInfoRequest.getAssurance())
-                .build());
+        Customer updatedCustomer = customerService.updateFinancialInformation(existCustomer.getId(), salary,assurance);
 
         Credit credit = getCreditInquiry(updatedCustomer.getSalary(),updatedCustomer.getAssurance(),updatedCustomer.getCreditScore());
         credit.setId(existCustomer.getCredit().getId());

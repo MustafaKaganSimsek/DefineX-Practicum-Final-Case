@@ -171,16 +171,13 @@ class CreditServiceImplTest {
                 .customer(updatedCustomer)
                 .build();
 
-        CustomerFinancialInfoDto financialInformation= CustomerFinancialInfoDto.builder()
-                .salary(updatedCustomer.getSalary())
-                .assurance(updatedCustomer.getAssurance())
-                .build();
+
 
         when(customerService.findByIdentityNumber(customer.getIdentityNumber())).thenReturn(customer);
-        when(customerService.updateFinancialInformation(customer.getId(),financialInformation)).thenReturn(updatedCustomer).thenReturn(updatedCustomer);
+        when(customerService.updateFinancialInformation(customer.getId(),updatedCustomer.getSalary(),updatedCustomer.getAssurance())).thenReturn(updatedCustomer).thenReturn(updatedCustomer);
         when(creditRepository.save(updatedCredit)).thenReturn(updatedCredit);
 
-        Credit result = creditService.updateExistCredit(customer.getIdentityNumber(),financialInformation);
+        Credit result = creditService.updateExistCredit(customer.getIdentityNumber(),updatedCustomer.getSalary(),updatedCustomer.getAssurance());
 
         assertEquals(result,updatedCredit);
     }
@@ -244,15 +241,10 @@ class CreditServiceImplTest {
                 .build();
 
 
-        CustomerFinancialInfoDto financialInformation= CustomerFinancialInfoDto.builder()
-                .salary(testCustomer.getSalary())
-                .assurance(testCustomer.getAssurance())
-                .build();
-
         when(customerService.findByIdentityNumber(testCustomer.getIdentityNumber())).thenReturn(testCustomer);
 
 
-        assertThrows(CreditNotFoundExeption.class,()->creditService.updateExistCredit(customer.getIdentityNumber(),financialInformation));
+        assertThrows(CreditNotFoundExeption.class,()->creditService.updateExistCredit(customer.getIdentityNumber(),testCustomer.getSalary(),testCustomer.getAssurance()));
     }
 
     @Test

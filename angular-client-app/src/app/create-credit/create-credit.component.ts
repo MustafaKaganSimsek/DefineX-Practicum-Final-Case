@@ -42,7 +42,9 @@ export class CreateCreditComponent implements OnInit {
     
     this.service.setCredit(this.customer).subscribe({
       next:(response) =>{
-        alert(response)
+        this.credit=<Credit>response;
+        console.log(this.credit);
+        alert(this.credit);
 
       },
       error:(err) =>{

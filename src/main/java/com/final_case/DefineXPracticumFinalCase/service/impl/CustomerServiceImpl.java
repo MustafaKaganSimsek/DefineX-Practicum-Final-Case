@@ -65,12 +65,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer updateFinancialInformation(UUID id, CustomerFinancialInfoDto financialInformationDto) {
+    public Customer updateFinancialInformation(UUID id,  double salary, double assurance) {
         Customer existCustomer = customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer " + id + " Not Found"));
 
-        existCustomer.setSalary(financialInformationDto.getSalary());
-        existCustomer.setAssurance(financialInformationDto.getAssurance());
+        existCustomer.setSalary(salary);
+        existCustomer.setAssurance(assurance);
         existCustomer.setCreditScore(creditScoreService.getCreditScore());
         return customerRepository.save(existCustomer);
     }

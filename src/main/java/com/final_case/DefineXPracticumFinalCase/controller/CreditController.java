@@ -70,10 +70,10 @@ public class CreditController {
     }
 
     @PostMapping("/auto_update/{identityNumber}")
-    public ResponseEntity<CreditDto> updateExistCredit(@PathVariable String identityNumber,@Valid @RequestBody CustomerFinancialInfoDto financialInfoRequest){
+    public ResponseEntity<CreditDto> updateExistCredit(@PathVariable String identityNumber,@RequestParam double salary, @RequestParam double assurance){
         log.debug("REST Request to update exist credit application: {}",identityNumber);
 
-        return ResponseEntity.ok(converter.convert(creditService.updateExistCredit(identityNumber,financialInfoRequest)));
+        return ResponseEntity.ok(converter.convert(creditService.updateExistCredit(identityNumber,salary,assurance)));
     }
 
 }

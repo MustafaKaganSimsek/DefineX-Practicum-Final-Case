@@ -1,16 +1,16 @@
   <h1>Kredini Güncelle</h1>
   <div class="mb-5 mx-3">
     <label for="identityNumber" class="form-label">Kimlik Numarası</label>
-    <input type="test" class="form-control" id="identityNumber" >
+    <input #identityNumber type="test" class="form-control" id="identityNumber" >
   </div>
   <div class="mb-3 mx-3">
     <label for="salary" class="form-label">Aylık Gelir</label>
-    <input type="number" class="form-control" id="exampleFormControlInput1" >
+    <input #salary type="string" class="form-control" id="salary" >
   </div>
   <div class="mb-3 mx-3">
     <label for="assurance" class="form-label">Teminat</label>
-    <input type="number" class="form-control" id="assurance" >
+    <input #assurance type="number" class="form-control" id="assurance" >
   </div>
   <div class="mx-3 mt-5">
-    <button type="button" class="btn btn-primary w-100 " >Kredini Öğren</button>
+    <button type="button" class="btn btn-primary w-100 " (click)="updateCredit(identityNumber.value,salary.value,assurance.value)">Kredini Öğren</button>
   </div>

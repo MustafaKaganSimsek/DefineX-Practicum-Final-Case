@@ -14,7 +14,7 @@ public interface CustomerService {
 
     Customer updatePersonalInformation(UUID id , CustomerPersonalInfoDto customerPersonalInfoDto);
 
-    Customer updateFinancialInformation(UUID id , CustomerFinancialInfoDto financialInformationDto);
+    Customer updateFinancialInformation(UUID id ,double salary, double assurance);
 
     void delete(UUID id);
 

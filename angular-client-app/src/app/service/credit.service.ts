@@ -15,7 +15,12 @@ export class CreditService {
     
     return this.http.post(this.url+"/create",customer);
   }
-  getCredit(identityNumber:string,bithday:Date){
-    return this.http.get(this.url+"/customer?identityNumber="+identityNumber+"&bithday="+bithday)
+
+  findCreditByIdentityNumberAndBirthday(birthDay:string,identityNumber:string){
+    return this.http.get(this.url+"/customer?identityNumber="+identityNumber+"&birthDay="+birthDay);
+  }
+
+  updateCredit(identityNumber:string,salary:string,assurance:string){
+    return this.http.post(this.url+"/auto_update/"+identityNumber+"?salary="+salary+"&assurance="+assurance,null)
   }
 }

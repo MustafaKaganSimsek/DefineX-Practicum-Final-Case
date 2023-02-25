@@ -4,7 +4,7 @@ name?:string;
 surname?:string;
 identityNumber?:string;
 callNumber?:string;
-birthDay?:Date;
+birthDay?:string;
 salary?:string;
 assurance?:string;
 
