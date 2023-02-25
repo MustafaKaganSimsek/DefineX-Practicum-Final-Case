@@ -1,5 +1,6 @@
 package com.final_case.DefineXPracticumFinalCase.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotBlank;
@@ -8,6 +9,7 @@ import org.hibernate.validator.constraints.Range;
 
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.UUID;
 
 @Builder
@@ -41,7 +43,8 @@ public class Customer extends Auditable{
 
     @NotNull(message = "Birth day is mandatory")
     @Column(name = "birth_day",nullable = false)
-    private LocalDate birthDay;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date birthDay;
 
     @Range(min = 0)
     @Column(name = "salary")

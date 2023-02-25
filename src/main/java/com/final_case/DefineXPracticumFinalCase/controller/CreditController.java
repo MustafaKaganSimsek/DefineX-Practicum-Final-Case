@@ -1,5 +1,6 @@
 package com.final_case.DefineXPracticumFinalCase.controller;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.final_case.DefineXPracticumFinalCase.dto.CreditDto;
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerFinancialInfoDto;
 import com.final_case.DefineXPracticumFinalCase.dto.converter.CreditConverter;
@@ -9,12 +10,14 @@ import com.final_case.DefineXPracticumFinalCase.service.CreditService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -63,7 +66,7 @@ public class CreditController {
 
     @GetMapping("/customer")
     public ResponseEntity<CreditDto> getExistCredit(@RequestParam String identityNumber,
-                                                    @RequestParam LocalDate birthDay){
+                                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthDay){
         log.debug("REST Request to get exist credit application: {} and {}",identityNumber,birthDay);
 
         return ResponseEntity.ok(converter.convert(creditService.getExistCredit(identityNumber,birthDay)));

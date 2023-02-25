@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.GregorianCalendar;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -48,7 +49,7 @@ class CreditServiceImplTest {
                 .surname("surname")
                 .identityNumber("2222222222")
                 .callNumber("05059656565")
-                .birthDay(LocalDate.ofEpochDay(1998-11-03))
+                .birthDay(new GregorianCalendar(1998, 3, 30).getTime())
                 .salary(5000)
                 .assurance(10000)
                 .creditScore(1000)
@@ -102,7 +103,7 @@ class CreditServiceImplTest {
                 .surname("surname")
                 .identityNumber("2222222222")
                 .callNumber("05059656565")
-                .birthDay(LocalDate.ofEpochDay(1998-11-03))
+                .birthDay(new GregorianCalendar(1998, 3, 30).getTime())
                 .salary(5000)
                 .assurance(10000)
                 .build();
@@ -131,7 +132,7 @@ class CreditServiceImplTest {
                 .surname("surname")
                 .identityNumber("2222222222")
                 .callNumber("05059656565")
-                .birthDay(LocalDate.ofEpochDay(1998-11-03))
+                .birthDay(new GregorianCalendar(1998, 3, 30).getTime())
                 .salary(5000)
                 .assurance(10000)
                 .creditScore(1000)
@@ -157,7 +158,7 @@ class CreditServiceImplTest {
                 .surname("surname")
                 .identityNumber("2222222222")
                 .callNumber("05059656565")
-                .birthDay(LocalDate.ofEpochDay(1998-11-03))
+                .birthDay(new GregorianCalendar(1998, 3, 30).getTime())
                 .salary(10000)
                 .assurance(15000)
                 .creditScore(1000)
@@ -234,7 +235,7 @@ class CreditServiceImplTest {
                 .surname("surname")
                 .identityNumber("2222222222")
                 .callNumber("05059656565")
-                .birthDay(LocalDate.ofEpochDay(1998-11-03))
+                .birthDay(new GregorianCalendar(1998, 3, 30).getTime())
                 .salary(10000)
                 .assurance(15000)
                 .creditScore(1000)
@@ -255,7 +256,7 @@ class CreditServiceImplTest {
                 .surname("surname")
                 .identityNumber("2222222222")
                 .callNumber("05059656565")
-                .birthDay(LocalDate.ofEpochDay(1998-11-03))
+                .birthDay(new GregorianCalendar(1998, 3, 30).getTime())
                 .salary(10000)
                 .assurance(15000)
                 .creditScore(1000)

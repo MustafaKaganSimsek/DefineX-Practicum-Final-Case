@@ -13,21 +13,38 @@ export class FindCreditComponent implements OnInit {
   identityNumber?:string;
 
   credit?:Credit;
+  creditLimit?:Number;
+  accepted?:boolean
+
+  isError=false;
+  errorMessage?:string;
+
+  openModal=false;
   constructor(private service:CreditService) { }
 
   ngOnInit(): void {
   }
   findCreditByIdentityNumberAndBirthday(birthDay:string,identityNumber:string){
-
+    if(identityNumber==""||birthDay==""){
+      this.isError=true
+      this.errorMessage="Zorunlu '*' alanlar boş olamaz"
+      throw new Error("Zorunlu '*' alanlar boş olamaz");
+            
+    }
     this.service.findCreditByIdentityNumberAndBirthday(birthDay,identityNumber).subscribe({
       next:(response) =>{
         this.credit=<Credit>response;
-        console.log(this.credit);
-        alert(this.credit);
+        this.creditLimit=this.credit.creditLimit;
+        this.accepted=this.credit.accepted;
+        this.openModal=true;
+        this.isError=false;
   
       },
       error:(err) =>{
-        alert(err.message);
+        console.log(err);
+        this.isError=true;
+        this.errorMessage=err.error;
+        
       }
     })
   

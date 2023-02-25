@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.UUID;
 
 public interface CreditService {
@@ -24,5 +25,5 @@ public interface CreditService {
     @Transactional
     Credit updateExistCredit(String identityNumber, double salary, double assurance);
 
-    Credit getExistCredit(String idetityNumber , LocalDate birthDay);
+    Credit getExistCredit(String idetityNumber , Date birthDay);
 }

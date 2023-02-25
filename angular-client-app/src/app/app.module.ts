@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateCreditComponent } from './create-credit/create-credit.component';
 import { FindCreditComponent } from './find-credit/find-credit.component';
 import { UpdateCreditComponent } from './update-credit/update-credit.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -16,11 +17,13 @@ import { UpdateCreditComponent } from './update-credit/update-credit.component';
     CreateCreditComponent,
     FindCreditComponent,
     UpdateCreditComponent
+    
   ],
   imports: [
     BrowserModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

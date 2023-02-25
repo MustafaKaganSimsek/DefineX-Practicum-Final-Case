@@ -5,6 +5,7 @@ import com.final_case.DefineXPracticumFinalCase.dto.CustomerFinancialInfoDto;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ public interface CustomerService {
 
     List<Customer> findAll();
 
-    Customer findByIdentityNumberAndBirthDay(String idetityNumber , LocalDate birthDay);
+    Customer findByIdentityNumberAndBirthDay(String idetityNumber , Date birthDay);
 
     Customer findByIdentityNumber(String identityNumber);
 }

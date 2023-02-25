@@ -1,16 +1,36 @@
-  <h1>Kredini Güncelle</h1>
+  <h1 style="text-align: center;">Kredinizi Güncelleyin</h1>
   <div class="mb-5 mx-3">
-    <label for="identityNumber" class="form-label">Kimlik Numarası</label>
+    <label for="identityNumber" class="form-label">Kimlik Numarası*</label>
     <input #identityNumber type="test" class="form-control" id="identityNumber" >
   </div>
   <div class="mb-3 mx-3">
-    <label for="salary" class="form-label">Aylık Gelir</label>
+    <label for="salary" class="form-label">Aylık Gelir*</label>
     <input #salary type="string" class="form-control" id="salary" >
   </div>
   <div class="mb-3 mx-3">
     <label for="assurance" class="form-label">Teminat</label>
     <input #assurance type="number" class="form-control" id="assurance" >
   </div>
+
+  <p class="mx-3" [style.display]="isError?'block':'none'" style="color: red;">{{errorMessage}}</p>
+
   <div class="mx-3 mt-5">
     <button type="button" class="btn btn-primary w-100 " (click)="updateCredit(identityNumber.value,salary.value,assurance.value)">Kredini Öğren</button>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" [style.display]="openModal ? 'block':'none' ">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Kredi Sonucu</h5>
+          <button type="button" class="close" style="background-color: white; border: none;" (click)="openModal=false">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Credi Limiti: {{creditLimit}}</p>
+          <p>Kredi durumu: {{ accepted ? "Onaylandı":"Reddedildi"}}</p>
+        </div>
+      </div>
+    </div>
   </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { log } from 'console';
 import { Credit } from '../model/credit';
 import { Customer } from '../model/customer';
 import { CreditService } from '../service/credit.service';
@@ -15,10 +16,16 @@ export class CreateCreditComponent implements OnInit {
   callNumber?:string;
   salary?:string;
   assurance?:string;
-
   customer?:Customer;
 
   credit?:Credit;
+  creditLimit?:Number;
+  accepted?:boolean
+
+  isError=false;
+  errorMessage?:string;
+
+  openModal=false;
 
   constructor(private service:CreditService) { }
 
@@ -26,7 +33,6 @@ export class CreateCreditComponent implements OnInit {
   }
 
   setCredit(name:string,surname:string,identityNumber:string,callNumber:string,birthDay:any,assurance:string,salary:string){
-    
     this.customer ={
 
       name:name,
@@ -39,17 +45,34 @@ export class CreateCreditComponent implements OnInit {
 
     }
     console.log(this.customer);
-    
-    this.service.setCredit(this.customer).subscribe({
-      next:(response) =>{
-        this.credit=<Credit>response;
-        console.log(this.credit);
-        alert(this.credit);
 
-      },
-      error:(err) =>{
-        alert(err.error.message+err.status);
-      }
-    })
+    if(name==""||surname==""||identityNumber==""||callNumber==""||birthDay==""||salary==""){
+      this.isError=true
+      this.errorMessage="Zorunlu '*' alanlar boş olamaz"
+      throw new Error("Zorunlu '*' alanlar boş olamaz");
+            
+    }
+      
+     
+      
+      this.service.setCredit(this.customer).subscribe({
+        next:(response) =>{
+          this.credit=<Credit>response;
+          this.creditLimit=this.credit.creditLimit;
+          this.accepted=this.credit.accepted;
+          this.isError=false
+          this.openModal=true
+          
+  
+        },
+        error:(err) =>{
+          console.log(err);
+          this.isError=true;
+          this.errorMessage=err.error;
+        }
+      })
+
+    
+    
   }
 }

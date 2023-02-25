@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -40,7 +41,7 @@ class CustomerServiceImplTest {
             .surname("surname")
             .identityNumber("2222222222")
             .callNumber("05059656565")
-            .birthDay(LocalDate.ofEpochDay(1998-11-03))
+            .birthDay(new GregorianCalendar(1998, 3, 30).getTime())
             .salary(5000)
             .assurance(10000)
             .creditScore(1000)
@@ -75,7 +76,7 @@ class CustomerServiceImplTest {
                 .surname("surnameUpdate")
                 .identityNumber("2222222222")
                 .callNumber("05059650000")
-                .birthDay(LocalDate.ofEpochDay(1998-11-03))
+                .birthDay(new GregorianCalendar(1998, 3, 30).getTime())
                 .salary(5000)
                 .assurance(10000)
                 .creditScore(1000)
@@ -98,7 +99,7 @@ class CustomerServiceImplTest {
                 .surname("surname1")
                 .identityNumber("2552222222")
                 .callNumber("05059657575")
-                .birthDay(LocalDate.ofEpochDay(1990-11-03))
+                .birthDay(new GregorianCalendar(1998, 3, 30).getTime())
                 .salary(3000)
                 .assurance(30000)
                 .creditScore(750)

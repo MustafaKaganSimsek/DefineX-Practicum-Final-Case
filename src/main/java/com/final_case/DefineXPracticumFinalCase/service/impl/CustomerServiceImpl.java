@@ -13,6 +13,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -89,7 +90,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public Customer findByIdentityNumberAndBirthDay(String identityNumber , LocalDate birthDay) {
+    public Customer findByIdentityNumberAndBirthDay(String identityNumber , Date birthDay) {
         log.debug("Request to get Customer by Identity Number and Birth Day: {} and {}",identityNumber,birthDay);
 
         return customerRepository.findByIdentityNumberAndBirthDay(identityNumber, birthDay)

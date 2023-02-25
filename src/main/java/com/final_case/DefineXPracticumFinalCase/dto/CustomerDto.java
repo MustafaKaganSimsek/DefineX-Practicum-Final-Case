@@ -1,5 +1,6 @@
 package com.final_case.DefineXPracticumFinalCase.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,7 +22,8 @@ public class CustomerDto {
     private String surname;
     private String identityNumber;
     private String callNumber;
-    private LocalDate birthDay;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date birthDay;
     private double salary;
     private double assurance;
     private double creditScore;

@@ -15,6 +15,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.UUID;
 
 @Log4j2
@@ -142,7 +143,7 @@ public class CreditServiceImpl implements CreditService {
 
 
     @Override
-    public Credit getExistCredit(String idetityNumber , LocalDate birthDay) {
+    public Credit getExistCredit(String idetityNumber , Date birthDay) {
         log.debug("Request to get exist Credit : {} and {}",idetityNumber,birthDay);
         Customer customer = customerService.findByIdentityNumberAndBirthDay(idetityNumber,birthDay);
 
