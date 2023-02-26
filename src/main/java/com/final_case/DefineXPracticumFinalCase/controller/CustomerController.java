@@ -29,23 +29,23 @@ public class CustomerController {
     private final CustomerConverter converter;
 
     @PostMapping("/save")
-    public ResponseEntity<CustomerDto> save(@Valid @RequestBody CreateCustomerRequest customerRequest){
-        log.debug("REST Request to save Customer: {}",customerRequest.getIdentityNumber());
+    public ResponseEntity<CustomerDto> save(@Valid @RequestBody CreateCustomerRequest customerRequest) {
+        log.debug("REST Request to save Customer: {}", customerRequest.getIdentityNumber());
         Customer customer = customerService.save(customerRequest);
         Credit credit = creditService.createCreditForExistCustomer(customer.getIdentityNumber());
         customer.setCredit(credit);
         return ResponseEntity.ok(converter.convert(customer));
     }
 
-
     @GetMapping("/all")
-    public ResponseEntity<List<CustomerDto>> findAll(){
+    public ResponseEntity<List<CustomerDto>> findAll() {
         log.debug("REST Request to get all Customer");
         return ResponseEntity.ok(converter.convert(customerService.findAll()));
     }
 
     @PostMapping("/update/financial_info/{id}")
-    public ResponseEntity<CustomerDto> updateFinancialInfo (@PathVariable(name = "id") UUID id,@Valid @RequestBody CustomerFinancialInfo financialInfo){
+    public ResponseEntity<CustomerDto> updateFinancialInfo(@PathVariable(name = "id") UUID id,
+            @Valid @RequestBody CustomerFinancialInfo financialInfo) {
         log.debug("REST Request to update Customer personal information by id: {}", id);
         Customer customer = customerService.updateFinancialInformation(id, financialInfo);
         CustomerFinancialInfo info = CustomerFinancialInfo.builder()
@@ -54,26 +54,25 @@ public class CustomerController {
                 .creditScore(customer.getCreditScore())
                 .build();
 
-        creditService.update(customer.getCredit().getId(),info);
+        creditService.update(customer.getCredit().getId(), info);
 
         return ResponseEntity.ok(converter.convert(customer));
 
     }
 
     @PostMapping("/update/personal_info/{id}")
-    public ResponseEntity<CustomerDto> updatePersonalInfo (@PathVariable(name = "id") UUID id, @RequestBody CustomerPersonalInfo CustomerPersonalInfo){
+    public ResponseEntity<CustomerDto> updatePersonalInfo(@PathVariable(name = "id") UUID id,
+            @RequestBody CustomerPersonalInfo CustomerPersonalInfo) {
         log.debug("REST Request to update Customer personal information by id: {}", id);
-        return ResponseEntity.ok(converter.convert(customerService.updatePersonalInformation(id, CustomerPersonalInfo)));
+        return ResponseEntity
+                .ok(converter.convert(customerService.updatePersonalInformation(id, CustomerPersonalInfo)));
 
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable UUID id){
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable UUID id) {
         log.debug("REST Request to delete Customer : {}", id);
         customerService.delete(id);
     }
-
-
-
 
 }
