@@ -22,7 +22,7 @@ public class CustomerDto {
     private String surname;
     private String identityNumber;
     private String callNumber;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthDay;
     private double salary;
     private double assurance;

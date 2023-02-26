@@ -30,7 +30,7 @@ export class UpdateCreditComponent implements OnInit {
   }
 
   updateCredit(identityNumber:string,salary:string,assurance:string){
-    if(identityNumber==""||salary==""||assurance==""){
+    if(identityNumber==""||salary==""){
       this.isError=true
       this.errorMessage="Zorunlu '*' alanlar boş olamaz"
       throw new Error("Zorunlu '*' alanlar boş olamaz");
