@@ -1,5 +1,6 @@
 package com.final_case.DefineXPracticumFinalCase.service.impl;
 
+import com.final_case.DefineXPracticumFinalCase.dto.CreateCustomerRequest;
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerFinancialInfo;
 import com.final_case.DefineXPracticumFinalCase.enumeration.CreditMessage;
 import com.final_case.DefineXPracticumFinalCase.exception.CreditNotFoundExeption;
@@ -96,7 +97,7 @@ class CreditServiceImplTest {
 
     @Test
     void createCreditForNewCustomer_shouldReturnCredit() {
-        Customer customerRequest = Customer.builder()
+        CreateCustomerRequest customerRequest = CreateCustomerRequest.builder()
                 .name("name")
                 .surname("surname")
                 .identityNumber("2222222222")

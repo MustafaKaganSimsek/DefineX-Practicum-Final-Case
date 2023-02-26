@@ -1,5 +1,6 @@
 package com.final_case.DefineXPracticumFinalCase.controller;
 
+import com.final_case.DefineXPracticumFinalCase.dto.CreateCustomerRequest;
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerDto;
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerFinancialInfo;
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerPersonalInfo;
@@ -22,14 +23,13 @@ import java.util.UUID;
 @Log4j2
 @RestController
 @RequestMapping("customer")
-@Validated
 public class CustomerController {
     private final CustomerService customerService;
     private final CreditService creditService;
     private final CustomerConverter converter;
 
     @PostMapping("/save")
-    public ResponseEntity<CustomerDto> save(@Valid @RequestBody Customer customerRequest){
+    public ResponseEntity<CustomerDto> save(@Valid @RequestBody CreateCustomerRequest customerRequest){
         log.debug("REST Request to save Customer: {}",customerRequest.getIdentityNumber());
         Customer customer = customerService.save(customerRequest);
         Credit credit = creditService.createCreditForExistCustomer(customer.getIdentityNumber());
@@ -45,7 +45,7 @@ public class CustomerController {
     }
 
     @PostMapping("/update/financial_info/{id}")
-    public ResponseEntity<CustomerDto> updateFinancialInfo (@PathVariable(name = "id") UUID id, @RequestBody CustomerFinancialInfo financialInfo){
+    public ResponseEntity<CustomerDto> updateFinancialInfo (@PathVariable(name = "id") UUID id,@Valid @RequestBody CustomerFinancialInfo financialInfo){
         log.debug("REST Request to update Customer personal information by id: {}", id);
         Customer customer = customerService.updateFinancialInformation(id, financialInfo);
         CustomerFinancialInfo info = CustomerFinancialInfo.builder()

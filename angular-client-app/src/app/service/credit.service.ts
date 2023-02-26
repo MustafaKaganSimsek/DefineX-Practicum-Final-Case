@@ -24,6 +24,6 @@ export class CreditService {
   updateCredit(identityNumber:string,customerFinancialInfo: CustomerFinancialInfo){
 
 
-    return this.http.post(this.url+"/update_with_customer/"+identityNumber,customerFinancialInfo);
+    return this.http.post(this.url+"/update/"+identityNumber,customerFinancialInfo);
   }
 }

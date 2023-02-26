@@ -1,5 +1,6 @@
 package com.final_case.DefineXPracticumFinalCase.service.impl;
 
+import com.final_case.DefineXPracticumFinalCase.dto.CreateCustomerRequest;
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerFinancialInfo;
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerPersonalInfo;
 import com.final_case.DefineXPracticumFinalCase.exception.CustomerNotFoundException;
@@ -27,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public Customer save(Customer customerRequest) {
+    public Customer save(CreateCustomerRequest customerRequest) {
         log.debug("Request to save Customer: {}",customerRequest);
         if (customerRepository.existsByIdentityNumber(customerRequest.getIdentityNumber())){
             throw new ExistsCustomerException("Customer is exists");

@@ -18,7 +18,7 @@
     <button type="button" class="btn btn-primary w-100 " (click)="updateCredit(identityNumber.value,salary.value,assurance.value)">Kredini Öğren</button>
   </div>
 
-  <div class="modal" tabindex="-1" role="dialog" [style.display]="openModal ? 'block':'none' ">
+  <div class="modal" tabindex="-1" role="dialog" [style.display]="openModal ? 'block':'none' " >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -27,7 +27,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" [style.background-color]="accepted?'green':'red'">
           <p>Credi Limiti: {{creditLimit}}</p>
           <p>Kredi durumu: {{ accepted ? "Onaylandı":"Reddedildi"}}</p>
         </div>

@@ -1,5 +1,6 @@
 package com.final_case.DefineXPracticumFinalCase.service.impl;
 
+import com.final_case.DefineXPracticumFinalCase.dto.CreateCustomerRequest;
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerFinancialInfo;
 import com.final_case.DefineXPracticumFinalCase.enumeration.CreditMessage;
 import com.final_case.DefineXPracticumFinalCase.exception.CreditNotFoundExeption;
@@ -25,6 +26,8 @@ public class CreditServiceImpl implements CreditService {
     private final CustomerService customerService;
     private final CreditRepository creditRepository;
 
+
+    //
     @Transactional
     @Override
     public Credit update(UUID creditId, CustomerFinancialInfo financialInfo){
@@ -48,18 +51,10 @@ public class CreditServiceImpl implements CreditService {
 
     @Transactional
     @Override
-    public Credit createCreditForNewCustomer(Customer customerRequest){
+    public Credit createCreditForNewCustomer(CreateCustomerRequest customerRequest){
         log.debug("Request to create new Credit : {}",customerRequest.getIdentityNumber());
 
-        Customer customer = customerService.save(Customer.builder()
-                        .name(customerRequest.getName())
-                        .surname(customerRequest.getSurname())
-                        .identityNumber(customerRequest.getIdentityNumber())
-                        .callNumber(customerRequest.getCallNumber())
-                        .birthDay(customerRequest.getBirthDay())
-                        .salary(customerRequest.getSalary())
-                        .assurance(customerRequest.getAssurance())
-                    .build());
+        Customer customer = customerService.save(customerRequest);
 
         Credit credit = creditInquiry(customer.getSalary(),customer.getAssurance(),customer.getCreditScore());
 
@@ -155,7 +150,7 @@ public class CreditServiceImpl implements CreditService {
 
         } else if (creditScore>=500
                 && creditScore<1000
-                && salary>10000) {
+                && salary>=10000) {
 
             double creditLimit = (salary * (creditLimitMultiplier * 0.5)) + (assurance * 0.25);
             return createCreditObject(CreditMessage.ACCEPTED,creditLimit,true);

@@ -1,5 +1,6 @@
 package com.final_case.DefineXPracticumFinalCase.controller;
 
+import com.final_case.DefineXPracticumFinalCase.dto.CreateCustomerRequest;
 import com.final_case.DefineXPracticumFinalCase.dto.CreditDto;
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerFinancialInfo;
 import com.final_case.DefineXPracticumFinalCase.dto.converter.CreditConverter;
@@ -29,26 +30,19 @@ public class CreditController {
     private final CreditConverter converter;
 
 
-
-
-    @PostMapping("/update/{id}")
-    public ResponseEntity<CreditDto> update(@PathVariable UUID creditId, @Valid CustomerFinancialInfo financialInfo) {
-        log.debug("REST request to update Credit by id: {}",creditId);
-
-        return ResponseEntity.ok(converter.convert(creditService.update(creditId,financialInfo)));
-    }
-
     @PostMapping("/create")
-    public ResponseEntity<CreditDto> createCreditForNewCustomer(@Valid @RequestBody Customer customerRequest){
+    public ResponseEntity<CreditDto> createCreditForNewCustomer(@Valid @RequestBody CreateCustomerRequest customerRequest){
         log.debug("REST Request to create new credit application: {}",customerRequest.getIdentityNumber());
 
         return ResponseEntity.ok(converter.convert(creditService.createCreditForNewCustomer(customerRequest)));
     }
-    @PostMapping("/create/{identityNumber}")
-    public ResponseEntity<CreditDto> createCreditForExistCustomer(@PathVariable String identityNumber){
-        log.debug("REST Request to create new credit application: {}",identityNumber);
 
-        return ResponseEntity.ok(converter.convert(creditService.createCreditForExistCustomer(identityNumber)));
+
+    @PostMapping("/update/{identityNumber}")
+    public ResponseEntity<CreditDto> updateWithCustomer(@PathVariable String identityNumber, @RequestBody @Valid CustomerFinancialInfo financialInfo){
+        log.debug("REST Request to update exist credit application: {}",identityNumber);
+
+        return ResponseEntity.ok(converter.convert(creditService.updateWithCustomer(identityNumber,financialInfo)));
     }
 
     @GetMapping("/customer")
@@ -59,11 +53,6 @@ public class CreditController {
         return ResponseEntity.ok(converter.convert(creditService.getExistCredit(identityNumber,birthDay)));
     }
 
-    @PostMapping("/update_with_customer/{identityNumber}")
-    public ResponseEntity<CreditDto> updateWithCustomer(@PathVariable String identityNumber, @RequestBody @Valid CustomerFinancialInfo financialInfo){
-        log.debug("REST Request to update exist credit application: {}",identityNumber);
 
-        return ResponseEntity.ok(converter.convert(creditService.updateWithCustomer(identityNumber,financialInfo)));
-    }
 
 }

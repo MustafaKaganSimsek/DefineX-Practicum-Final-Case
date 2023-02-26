@@ -1,5 +1,6 @@
 package com.final_case.DefineXPracticumFinalCase.service.impl;
 
+import com.final_case.DefineXPracticumFinalCase.dto.CreateCustomerRequest;
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerPersonalInfo;
 import com.final_case.DefineXPracticumFinalCase.exception.CustomerNotFoundException;
 import com.final_case.DefineXPracticumFinalCase.exception.ExistsCustomerException;
@@ -65,10 +66,19 @@ class CustomerServiceImplTest {
                 .assurance(10000)
                 .creditScore(1000)
                 .build();
+        CreateCustomerRequest customerRequest = CreateCustomerRequest.builder()
+                .name("name")
+                .surname("surname")
+                .identityNumber("2222222222")
+                .callNumber("05059656565")
+                .birthDay(new GregorianCalendar(1998, 3, 30).getTime())
+                .salary(5000)
+                .assurance(10000)
+                .build();
         when(customerRepository.existsByIdentityNumber(customer.getIdentityNumber())).thenReturn(false);
         when(creditScoreService.getCreditScore()).thenReturn(testCustomer.getCreditScore());
         when(customerRepository.save(testCustomer)).thenReturn(customer);
-        Customer result = customerService.save(customer);
+        Customer result = customerService.save(customerRequest);
         assertEquals(result, customer);
     }
 
@@ -163,9 +173,18 @@ class CustomerServiceImplTest {
 
     @Test
     void saveCustemer_whenCustomerExist_shouldThrowExistsCustomerException() {
+        CreateCustomerRequest customerRequest = CreateCustomerRequest.builder()
+                .name("name")
+                .surname("surname")
+                .identityNumber("2222222222")
+                .callNumber("05059656565")
+                .birthDay(new GregorianCalendar(1998, 3, 30).getTime())
+                .salary(5000)
+                .assurance(10000)
+                .build();
 
         when(customerRepository.existsByIdentityNumber(customer.getIdentityNumber())).thenReturn(true);
-        assertThrows(ExistsCustomerException.class, ()->customerService.save(customer));
+        assertThrows(ExistsCustomerException.class, ()->customerService.save(customerRequest));
     }
 
     @Test

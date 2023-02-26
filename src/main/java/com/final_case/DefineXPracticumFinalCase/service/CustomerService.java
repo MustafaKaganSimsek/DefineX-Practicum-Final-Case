@@ -1,5 +1,6 @@
 package com.final_case.DefineXPracticumFinalCase.service;
 
+import com.final_case.DefineXPracticumFinalCase.dto.CreateCustomerRequest;
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerFinancialInfo;
 import com.final_case.DefineXPracticumFinalCase.dto.CustomerPersonalInfo;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
@@ -10,7 +11,7 @@ import java.util.UUID;
 
 public interface CustomerService {
 
-    Customer save (Customer customer);
+    Customer save (CreateCustomerRequest customer);
 
     Customer updatePersonalInformation(UUID id , CustomerPersonalInfo customerPersonalInfo);
 
