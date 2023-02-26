@@ -7,5 +7,6 @@ callNumber?:string;
 birthDay?:string;
 salary?:string;
 assurance?:string;
+creditScore?:string;
 
 }

@@ -1,8 +1,7 @@
 package com.final_case.DefineXPracticumFinalCase.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.final_case.DefineXPracticumFinalCase.dto.CreditDto;
-import com.final_case.DefineXPracticumFinalCase.dto.CustomerFinancialInfoDto;
+import com.final_case.DefineXPracticumFinalCase.dto.CustomerFinancialInfo;
 import com.final_case.DefineXPracticumFinalCase.dto.converter.CreditConverter;
 import com.final_case.DefineXPracticumFinalCase.model.Credit;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
@@ -16,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -31,26 +29,15 @@ public class CreditController {
     private final CreditConverter converter;
 
 
-    @PostMapping("/save")
-    public ResponseEntity<CreditDto> save(@Valid Credit creditRequest){
-        log.debug("REST request to save Credit by Customer: {}",creditRequest.getCustomer().getId());
 
-        return new ResponseEntity<>(converter.convert(creditService.save(creditRequest)),HttpStatus.CREATED);
-    }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<CreditDto> update(@PathVariable UUID creditId, @Valid Credit creditRequest) {
+    public ResponseEntity<CreditDto> update(@PathVariable UUID creditId, @Valid CustomerFinancialInfo financialInfo) {
         log.debug("REST request to update Credit by id: {}",creditId);
 
-        return ResponseEntity.ok(converter.convert(creditService.update(creditId,creditRequest)));
+        return ResponseEntity.ok(converter.convert(creditService.update(creditId,financialInfo)));
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity delete(@PathVariable UUID creditId) {
-        log.debug("Rest request to delete Credit by id: {}",creditId);
-        creditService.delete(creditId);
-        return new ResponseEntity<>(HttpEntity.EMPTY,HttpStatus.OK);
-    }
     @PostMapping("/create")
     public ResponseEntity<CreditDto> createCreditForNewCustomer(@Valid @RequestBody Customer customerRequest){
         log.debug("REST Request to create new credit application: {}",customerRequest.getIdentityNumber());
@@ -72,11 +59,11 @@ public class CreditController {
         return ResponseEntity.ok(converter.convert(creditService.getExistCredit(identityNumber,birthDay)));
     }
 
-    @PostMapping("/auto_update/{identityNumber}")
-    public ResponseEntity<CreditDto> updateExistCredit(@PathVariable String identityNumber,@RequestParam double salary, @RequestParam double assurance){
+    @PostMapping("/update_with_customer/{identityNumber}")
+    public ResponseEntity<CreditDto> updateWithCustomer(@PathVariable String identityNumber, @RequestBody @Valid CustomerFinancialInfo financialInfo){
         log.debug("REST Request to update exist credit application: {}",identityNumber);
 
-        return ResponseEntity.ok(converter.convert(creditService.updateExistCredit(identityNumber,salary,assurance)));
+        return ResponseEntity.ok(converter.convert(creditService.updateWithCustomer(identityNumber,financialInfo)));
     }
 
 }

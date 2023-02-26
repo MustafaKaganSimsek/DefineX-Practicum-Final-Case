@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Credit } from '../model/credit';
 import { CreditService } from '../service/credit.service';
+import {CustomerFinancialInfo} from "../model/customer-financial-info";
 
 @Component({
   selector: 'update-credit',
@@ -17,6 +18,8 @@ export class UpdateCreditComponent implements OnInit {
   creditLimit?:Number;
   accepted?:boolean;
 
+  customerFinancialInfo?: CustomerFinancialInfo;
+
   isError=false;
   errorMessage?:string;
 
@@ -31,9 +34,14 @@ export class UpdateCreditComponent implements OnInit {
       this.isError=true
       this.errorMessage="Zorunlu '*' alanlar boş olamaz"
       throw new Error("Zorunlu '*' alanlar boş olamaz");
-            
+
     }
-    this.service.updateCredit(identityNumber,salary,assurance).subscribe({
+
+    this.customerFinancialInfo={
+      salary:salary,
+      assurance:assurance
+    }
+    this.service.updateCredit(identityNumber,this.customerFinancialInfo).subscribe({
       next:(response) =>{
         this.credit=<Credit>response;
         this.creditLimit=this.credit.creditLimit;

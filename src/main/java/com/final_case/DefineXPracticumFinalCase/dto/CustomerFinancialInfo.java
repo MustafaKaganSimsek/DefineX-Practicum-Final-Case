@@ -1,16 +1,13 @@
 package com.final_case.DefineXPracticumFinalCase.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-
-import java.util.UUID;
+import lombok.*;
 
 @Data
 @Builder
 @AllArgsConstructor
-public class CustomerFinancialInfoDto {
-    private UUID id;
+@NoArgsConstructor
+public class CustomerFinancialInfo {
+
     private double salary;
     private double assurance;
     private double creditScore;

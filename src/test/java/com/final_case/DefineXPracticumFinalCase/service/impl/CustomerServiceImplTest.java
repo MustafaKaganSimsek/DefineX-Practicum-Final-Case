@@ -1,6 +1,6 @@
 package com.final_case.DefineXPracticumFinalCase.service.impl;
 
-import com.final_case.DefineXPracticumFinalCase.dto.CustomerPersonalInfoDto;
+import com.final_case.DefineXPracticumFinalCase.dto.CustomerPersonalInfo;
 import com.final_case.DefineXPracticumFinalCase.exception.CustomerNotFoundException;
 import com.final_case.DefineXPracticumFinalCase.exception.ExistsCustomerException;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
@@ -14,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
@@ -56,16 +55,26 @@ class CustomerServiceImplTest {
 
     @Test
     void saveCustemer_shouldReturnCustomer() {
-
+        Customer testCustomer = Customer.builder()
+                .name("name")
+                .surname("surname")
+                .identityNumber("2222222222")
+                .callNumber("05059656565")
+                .birthDay(new GregorianCalendar(1998, 3, 30).getTime())
+                .salary(5000)
+                .assurance(10000)
+                .creditScore(1000)
+                .build();
         when(customerRepository.existsByIdentityNumber(customer.getIdentityNumber())).thenReturn(false);
-        when(customerRepository.save(customer)).thenReturn(customer);
+        when(creditScoreService.getCreditScore()).thenReturn(testCustomer.getCreditScore());
+        when(customerRepository.save(testCustomer)).thenReturn(customer);
         Customer result = customerService.save(customer);
         assertEquals(result, customer);
     }
 
     @Test
     void updateCustomer_shouldReturnCustomer() {
-        CustomerPersonalInfoDto customerPersonalInfoDto = CustomerPersonalInfoDto.builder()
+        CustomerPersonalInfo customerPersonalInfo = CustomerPersonalInfo.builder()
                 .surname("surnameUpdate")
                 .callNumber("05059650000")
                 .build();
@@ -85,7 +94,7 @@ class CustomerServiceImplTest {
 
         Mockito.when(customerRepository.findById(customerId)).thenReturn(Optional.ofNullable(customer));
         Mockito.when(customerRepository.save(updatedcustomer)).thenReturn(updatedcustomer);
-        Customer result = customerService.updatePersonalInformation(customer.getId(),customerPersonalInfoDto);
+        Customer result = customerService.updatePersonalInformation(customer.getId(), customerPersonalInfo);
 
         assertEquals(updatedcustomer,result);
     }
@@ -139,7 +148,7 @@ class CustomerServiceImplTest {
 
     @Test
     void updateCustomer_whenIdDoesNotExist_shouldThrowCustomerNotFoundException() {
-        CustomerPersonalInfoDto customerPersonalInfoDto = CustomerPersonalInfoDto.builder()
+        CustomerPersonalInfo customerPersonalInfo = CustomerPersonalInfo.builder()
                 .surname("surnameUpdate")
                 .callNumber("05059650000")
                 .build();
@@ -148,7 +157,7 @@ class CustomerServiceImplTest {
 
         Mockito.when(customerRepository.findById(customerId)).thenReturn(Optional.empty());
 
-        assertThrows(CustomerNotFoundException.class,()->customerService.updatePersonalInformation(customer.getId(),customerPersonalInfoDto));
+        assertThrows(CustomerNotFoundException.class,()->customerService.updatePersonalInformation(customer.getId(), customerPersonalInfo));
     }
 
 

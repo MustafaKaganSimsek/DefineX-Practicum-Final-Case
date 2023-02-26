@@ -14,7 +14,7 @@ class CreditScoreServiceImplTest {
     private CreditScoreServiceImpl creditScoreService;
 
     @Test
-    void getCreditScore_returnShoulDoubleNumber_between0and1500() {
+    void getCreditScore_shouldReturnDoubleNumber_between0and1500() {
         double result = creditScoreService.getCreditScore();
         assertTrue(result>0 && result<=1500);
     }

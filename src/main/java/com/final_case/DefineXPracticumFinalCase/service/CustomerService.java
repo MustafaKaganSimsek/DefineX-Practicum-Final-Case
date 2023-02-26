@@ -1,10 +1,9 @@
 package com.final_case.DefineXPracticumFinalCase.service;
 
-import com.final_case.DefineXPracticumFinalCase.dto.CustomerPersonalInfoDto;
-import com.final_case.DefineXPracticumFinalCase.dto.CustomerFinancialInfoDto;
+import com.final_case.DefineXPracticumFinalCase.dto.CustomerFinancialInfo;
+import com.final_case.DefineXPracticumFinalCase.dto.CustomerPersonalInfo;
 import com.final_case.DefineXPracticumFinalCase.model.Customer;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -13,9 +12,9 @@ public interface CustomerService {
 
     Customer save (Customer customer);
 
-    Customer updatePersonalInformation(UUID id , CustomerPersonalInfoDto customerPersonalInfoDto);
+    Customer updatePersonalInformation(UUID id , CustomerPersonalInfo customerPersonalInfo);
 
-    Customer updateFinancialInformation(UUID id ,double salary, double assurance);
+    Customer updateFinancialInformation(UUID id , CustomerFinancialInfo financialInfo);
 
     void delete(UUID id);
 

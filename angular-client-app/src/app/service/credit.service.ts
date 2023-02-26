@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
 import { Customer } from '../model/customer';
+import {CustomerFinancialInfo} from "../model/customer-financial-info";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CreditService {
 
   setCredit(customer:Customer){
     console.log(customer);
-    
+
     return this.http.post(this.url+"/create",customer);
   }
 
@@ -20,7 +21,9 @@ export class CreditService {
     return this.http.get(this.url+"/customer?identityNumber="+identityNumber+"&birthDay="+birthDay);
   }
 
-  updateCredit(identityNumber:string,salary:string,assurance:string){
-    return this.http.post(this.url+"/auto_update/"+identityNumber+"?salary="+salary+"&assurance="+assurance,null)
+  updateCredit(identityNumber:string,customerFinancialInfo: CustomerFinancialInfo){
+
+
+    return this.http.post(this.url+"/update_with_customer/"+identityNumber,customerFinancialInfo);
   }
 }
