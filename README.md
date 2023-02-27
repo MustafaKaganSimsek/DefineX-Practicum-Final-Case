@@ -36,7 +36,7 @@ The Credit result will be returned according to the following conditions:
 
 1. Clone the repo
 ```
-git clone https://github.com/MustafaKaganSimsek/HW3_WeatherApi.git
+git clone https://github.com/MustafaKaganSimsek/DefineX-Practicum-Final-Case.git
 ```
 ### Usage
 
@@ -54,3 +54,9 @@ docker-compose up
 * http://localhost:9000/
 
 ### Screenshot
+![create Credit](./readme-img/Screenshot_1.jpg)
+![Learn Credit](./readme-img/Screenshot_2.jpg)
+![Learn Credit Error](./readme-img/Screenshot_3.jpg)
+![Update Credit](./readme-img/Screenshot_4.jpg)
+![Update Credit Error](./readme-img/Screenshot_5.jpg)
+
