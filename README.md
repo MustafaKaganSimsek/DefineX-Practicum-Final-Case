@@ -8,6 +8,7 @@ Writing a restful application for a loan application system, which will take the
 * Java 17
 * Maven
 * Angular
+* Postgresql
 
 ## Getting Started
 
@@ -42,16 +43,16 @@ git clone https://github.com/MustafaKaganSimsek/DefineX-Practicum-Final-Case.git
 
 1. go to folder of the project
 ```
-cd .../HW3_WeatherApi
+cd .../DefineX-Practicum-Final-Case
 ```
-2. run project
+2. run project with Docker
 ```
 docker-compose up
 ```
-3. You can use swagger or Frontend app
+3. You can use swagger or frontend app
 
-* http://localhost:8080/swagger-ui/index.html
-* http://localhost:9000/
+* Swagger -> http://localhost:8080/swagger-ui/index.html
+* Frontend -> http://localhost:9000/
 
 ### Screenshot
 ![create Credit](./readme-img/Screenshot_1.jpg)
